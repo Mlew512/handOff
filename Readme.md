@@ -1,4 +1,4 @@
-Certainly! Let's imagine a personal project called "HandOff," which is a nurse hand-off app designed to streamline and improve the patient hand-off process. The primary goal of this app is to pull relevant patient information and present it in an easy-to-read and organized format for a smooth transition between nursing shifts.
+"HandOff," is a nurse hand-off app designed to streamline and improve the patient hand-off process. The primary goal of this app is to pull relevant patient information and present it in an easy-to-read and organized format for a smooth transition between nursing shifts.
 
 Key Features:
 

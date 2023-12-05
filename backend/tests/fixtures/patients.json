@@ -1,0 +1,122 @@
+[
+    {
+        "model": "patient_app.patient",
+        "pk": 1,
+        "fields": {
+            "first_name": "Mr.",
+            "last_name": "Heckles",
+            "date_of_birth": "1952-03-15",
+            "allergies": "Unknown",
+            "past_medical_history": "Frequent visitor to Sacred Heart",
+            "medical_id": "MH19520315"
+        }
+    },
+    {
+        "model": "patient_app.patient",
+        "pk": 2,
+        "fields": {
+            "first_name": "Mrs.",
+            "last_name": "Wilke",
+            "date_of_birth": "1940-09-22",
+            "allergies": "Aspirin",
+            "past_medical_history": "Various ailments",
+            "medical_id": "MW19400922"
+        }
+    },
+    {
+        "model": "patient_app.patient",
+        "pk": 3,
+        "fields": {
+            "first_name": "Harvey",
+            "last_name": "Corman",
+            "date_of_birth": "1965-07-10",
+            "allergies": "Penicillin",
+            "past_medical_history": "Heart condition",
+            "medical_id": "HC19650710"
+        }
+    },
+    {
+        "model": "patient_app.patient",
+        "pk": 4,
+        "fields": {
+            "first_name": "Mrs.",
+            "last_name": "Gallinari",
+            "date_of_birth": "1938-12-03",
+            "allergies": "None",
+            "past_medical_history": "none",
+            "medical_id": "MG19381203"
+        }
+    },
+    {
+        "model": "patient_app.patient",
+        "pk": 5,
+        "fields": {
+            "first_name": "Leonard",
+            "last_name": "Gooch",
+            "date_of_birth": "1948-06-18",
+            "allergies": "Sulfur",
+            "past_medical_history": "Gastrointestinal issues",
+            "medical_id": "LG19480618"
+        }
+    },
+    {
+        "model": "patient_app.patient",
+        "pk": 6,
+        "fields": {
+            "first_name": "Mrs.",
+            "last_name": "Tompkins",
+            "date_of_birth": "1932-01-29",
+            "allergies": "None",
+            "past_medical_history": "Multiple surgeries",
+            "medical_id": "MT19320129"
+        }
+    },
+    {
+        "model": "patient_app.patient",
+        "pk": 7,
+        "fields": {
+            "first_name": "Mr.",
+            "last_name": "Burski",
+            "date_of_birth": "1955-08-07",
+            "allergies": "Dust",
+            "past_medical_history": "Chronic back pain",
+            "medical_id": "MB19550807"
+        }
+    },
+    {
+        "model": "patient_app.patient",
+        "pk": 8,
+        "fields": {
+            "first_name": "Mrs.",
+            "last_name": "Henderson",
+            "date_of_birth": "1943-12-12",
+            "allergies": "None",
+            "past_medical_history": "High blood pressure",
+            "medical_id": "MH19431212"
+        }
+    },
+    {
+        "model": "patient_app.patient",
+        "pk": 9,
+        "fields": {
+            "first_name": "Mr.",
+            "last_name": "Simon",
+            "date_of_birth": "1960-04-25",
+            "allergies": "Pollen",
+            "past_medical_history": "Seasonal allergies",
+            "medical_id": "MS19600425"
+        }
+    },
+    {
+        "model": "patient_app.patient",
+        "pk": 10,
+        "fields": {
+            "first_name": "Mrs.",
+            "last_name": "Stone",
+            "date_of_birth": "1950-11-30",
+            "allergies": "Shellfish",
+            "past_medical_history": "Type 2 Diabetes",
+            "medical_id": "MS19501130"
+        }
+    }
+]
