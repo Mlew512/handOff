@@ -5,7 +5,9 @@ const Home = () => {
 
     return(
       <>
-        <Register/>
+       <h1>
+        welcome to Hand Off you are logged in
+       </h1>
       </>
       )
 }

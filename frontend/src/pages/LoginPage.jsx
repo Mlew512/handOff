@@ -1,33 +1,30 @@
-// RegisterPage.jsx
-import { useState } from "react";
 import { api } from "../utilities";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Register = () => {
-  const navigate = useNavigate();
-  const [username, setUser] = useState("");
-  const [password, setPassword] = useState("");
-
-  const signUp = async (e) => {
+const Login = () => {
+    const navigate = useNavigate();
+    const [username, setUser] = useState("");
+    const [password, setPassword] = useState("");
+    const logIn = async (e) => {
     e.preventDefault();
-    let response = await api.post("v1/users/signup/", {
-      email: username,
-      password: password,
+    let response = await api.post("v1/users/login/", {
+        email: username,
+        password: password,
     });
-    let user = response.data.user;
+    console.log(response);
     let token = response.data.token;
-    // Store the token securely (e.g., in localStorage or HttpOnly cookies)
+    let user = response.data.user;
     localStorage.setItem("token", token);
     api.defaults.headers.common["Authorization"] = `Token ${token}`;
-    // set the user using with useContext to allow all other pages that need user information
     setUser(user);
-    // navigate("/home");
-  };
+    navigate("/home");
+    };
 
-  return (
+return (
     <>
-      <h1>Register</h1>
-      <form onSubmit={signUp}>
+      <h1>Log In</h1>
+      <form onSubmit={logIn}>
         <div>
         <label htmlFor="inputEmail" className="form-label">
             Email
@@ -36,13 +33,12 @@ const Register = () => {
             type="email"
             id="inputEmail"
             className="form-control"
-            aria-describedby="passwordHelpBlock"
+            aria-describedby="EmailHelpBlock"
             placeholder="Email"
             value={username}
             onChange={(e) => setUser(e.target.value)}
           />
           <div id="usernameHelpBlock" className="form-text">
-            Email must be a valid address example: johnsmith@mail.com
           </div>
           <label htmlFor="inputPassword5" className="form-label">
             Password
@@ -51,20 +47,18 @@ const Register = () => {
             type="password"
             id="inputPassword5"
             className="form-control"
+            placeholder="PassWord"
             aria-describedby="passwordHelpBlock"
-            placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           <div id="passwordHelpBlock" className="form-text">
-            Your password must be 8-20 characters long, contain letters and
-            numbers, and must not contain spaces, special characters, or emoji.
           </div>
         </div>
-        <button type="submit">Sign up</button>
+        <button type="submit">Login</button>
       </form>
     </>
   );
 };
 
-export default Register;
+export default Login;
