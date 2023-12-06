@@ -12,7 +12,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
-class Sign_Up(APIView):
+class Sign_up(APIView):
     def post(self, request):
         request.data["username"] = request.data["email"]
         client = Client.objects.create_user(**request.data)
