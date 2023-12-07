@@ -1,0 +1,184 @@
+[
+  
+    {
+        "model": "assessments_app.assessment",
+        "pk": 1,
+        "fields": {
+          "encounter": 1, 
+          "provider": 1,    
+          "assessment_time": "2023-12-06T12:45:00",
+          "neuro": "Stable",
+          "cardio": "Normal",
+          "respiratory": "Clear",
+          "gastrointestinal": "No issues",
+          "genitourinary": "Normal"
+        }
+      },
+      {
+        "model": "assessments_app.assessment",
+        "pk": 2,
+        "fields": {
+          "encounter": 1,
+          "patient": 1,
+          "provider": 1,
+          "assessment_time": "2023-12-06T13:30:00",
+          "neuro": "Responsive",
+          "cardio": "Elevated heart rate",
+          "respiratory": "Slightly labored",
+          "gastrointestinal": "Mild discomfort",
+          "genitourinary": "Normal"
+        }
+      },
+      {
+        "model": "assessments_app.assessment",
+        "pk": 3,
+        "fields": {
+          "encounter": 1,
+          "patient": 1,
+          "provider": 1,
+          "assessment_time": "2023-12-06T14:15:00",
+          "neuro": "Alert",
+          "cardio": "Stable",
+          "respiratory": "Clear",
+          "gastrointestinal": "No issues",
+          "genitourinary": "Normal"
+        }
+      },
+    {
+      "model": "assessments_app.assessment",
+      "pk": 4,
+      "fields": {
+        "encounter": 2,
+        "patient": 2,
+        "provider": 2,
+        "assessment_time": "2023-12-06T14:00:00",
+        "neuro": "Stable",
+        "cardio": "Normal",
+        "respiratory": "Clear",
+        "gastrointestinal": "No issues",
+        "genitourinary": "Normal"
+      }
+    },
+    {
+      "model": "assessments_app.assessment",
+      "pk": 5,
+      "fields": {
+        "encounter": 2,
+        "patient": 2,
+        "provider": 2,
+        "assessment_time": "2023-12-06T14:45:00",
+        "neuro": "Alert",
+        "cardio": "Stable",
+        "respiratory": "Clear",
+        "gastrointestinal": "No issues",
+        "genitourinary": "Normal"
+      }
+    },
+    {
+      "model": "assessments_app.assessment",
+      "pk": 6,
+      "fields": {
+        "encounter": 2,
+        "patient": 2,
+        "provider": 2,
+        "assessment_time": "2023-12-06T15:30:00",
+        "neuro": "Responsive",
+        "cardio": "Elevated heart rate",
+        "respiratory": "Slightly labored",
+        "gastrointestinal": "Mild discomfort",
+        "genitourinary": "Normal"
+      }
+    },
+  
+    {
+      "model": "assessments_app.assessment",
+      "pk": 7,
+      "fields": {
+        "encounter": 3,
+        "patient": 3,
+        "provider": 3,
+        "assessment_time": "2023-12-06T16:00:00",
+        "neuro": "Stable",
+        "cardio": "Normal",
+        "respiratory": "Clear",
+        "gastrointestinal": "No issues",
+        "genitourinary": "Normal"
+      }
+    },
+    {
+      "model": "assessments_app.assessment",
+      "pk": 8,
+      "fields": {
+        "encounter": 3,
+        "patient": 3,
+        "provider": 3,
+        "assessment_time": "2023-12-06T16:45:00",
+        "neuro": "Alert",
+        "cardio": "Stable",
+        "respiratory": "Clear",
+        "gastrointestinal": "No issues",
+        "genitourinary": "Normal"
+      }
+    },
+    {
+      "model": "assessments_app.assessment",
+      "pk": 9,
+      "fields": {
+        "encounter": 3,
+        "patient": 3,
+        "provider": 3,
+        "assessment_time": "2023-12-06T17:30:00",
+        "neuro": "Responsive",
+        "cardio": "Elevated heart rate",
+        "respiratory": "Slightly labored",
+        "gastrointestinal": "Mild discomfort",
+        "genitourinary": "Normal"
+      }
+    },
+  
+    {
+      "model": "assessments_app.assessment",
+      "pk": 10,
+      "fields": {
+        "encounter": 4,
+        "patient": 4,
+        "provider": 4,
+        "assessment_time": "2023-12-06T18:00:00",
+        "neuro": "Stable",
+        "cardio": "Normal",
+        "respiratory": "Clear",
+        "gastrointestinal": "No issues",
+        "genitourinary": "Normal"
+      }
+    },
+    {
+      "model": "assessments_app.assessment",
+      "pk": 11,
+      "fields": {
+        "encounter": 4,
+        "patient": 4,
+        "provider": 4,
+        "assessment_time": "2023-12-06T18:45:00",
+        "neuro": "Alert",
+        "cardio": "Stable",
+        "respiratory": "Clear",
+        "gastrointestinal": "No issues",
+        "genitourinary": "Normal"
+      }
+    },
+    {
+      "model": "assessments_app.assessment",
+      "pk": 12,
+      "fields": {
+        "encounter": 4,
+        "patient": 4,
+        "provider": 4,
+        "assessment_time": "2023-12-06T19:30:00",
+        "neuro": "Responsive",
+        "cardio": "Elevated heart rate",
+        "respiratory": "Slightly labored",
+        "gastrointestinal": "Mild discomfort",
+        "genitourinary": "Normal"
+      }
+    }
+  ]

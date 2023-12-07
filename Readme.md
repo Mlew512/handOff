@@ -48,6 +48,12 @@ This NurseConnect app aims to enhance patient care by ensuring a smooth transiti
 
 
 
+Additional notes for next release:
+
+--add a table for each system in the assessment--
+
+-- select from options in assessment--
+
 
 
 
