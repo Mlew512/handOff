@@ -22,6 +22,15 @@ class All_patients(APIView):
         patients = Patient.objects.all()
         ser_patients = AllPatientsSerializer(patients, many=True)
         return Response(ser_patients.data)
+    
+    def post(self, request):
+        serializer = AllPatientsSerializer(data=request.data)
+        
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
 
 class A_patient(APIView):
@@ -38,18 +47,16 @@ class A_patient(APIView):
 
 
         if patient_id is not None:
-            # Handle logic for patient_id
             patient = get_object_or_404(Patient, id=patient_id)
             serializer= AllPatientsSerializer(patient)
             return Response(serializer.data)
         elif last_name is not None:
-            # Handle logic for patient_name
             patient = get_object_or_404(Patient, last_name=last_name)
             serializer= AllPatientsSerializer(patient)
             return Response(serializer.data)
         else:
-            # Handle other cases or return an error response
             return Response("No client matching credentials", status=HTTP_404_NOT_FOUND)
+        
 
 # ----------view patients by unit admitted to--------
 
