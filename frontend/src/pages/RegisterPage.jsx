@@ -21,8 +21,8 @@ const Register = () => {
     localStorage.setItem('user', user)
     api.defaults.headers.common["Authorization"] = `Token ${token}`;
     // set the user using with useContext to allow all other pages that need user information
-    setUser(user);
-    // navigate("/home");
+    // setUser(user);
+    navigate("/home");
   };
 
   return (

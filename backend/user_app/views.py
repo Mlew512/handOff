@@ -7,20 +7,24 @@ from rest_framework.status import (
     HTTP_201_CREATED,
     HTTP_404_NOT_FOUND,
     HTTP_204_NO_CONTENT,
+    HTTP_400_BAD_REQUEST,
 )
 from rest_framework.authtoken.models import Token
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-
+from .serializers import AllClientSerializer
 class Sign_up(APIView):
     def post(self, request):
-        request.data["username"] = request.data["email"]
-        client = Client.objects.create_user(**request.data)
-        token = Token.objects.create(user=client)
-        return Response(
-            {"client": client.email, "token": token.key}, status=HTTP_201_CREATED
-        )
-
+        try:
+            request.data["username"] = request.data["email"]
+            client = Client.objects.create_user(**request.data)
+            token = Token.objects.create(user=client)
+            return Response(
+                {"client": client.email, "token": token.key}, status=HTTP_201_CREATED
+            )
+        except Exception as e:
+            print(e)
+            return Response("Something went Wrong", status= HTTP_400_BAD_REQUEST)
 class Log_in(APIView):
     def post(self, request):
         email = request.data.get("email")
@@ -30,7 +34,7 @@ class Log_in(APIView):
             token, created = Token.objects.get_or_create(user=client)
             return Response({"token": token.key, "client": client.email})
         else:
-            return Response("No client matching credentials", status=HTTP_404_NOT_FOUND)
+            return Response("incorrect username or password", status=HTTP_404_NOT_FOUND)
 
 class Log_out(APIView):
     authentication_classes = [TokenAuthentication]
@@ -45,4 +49,11 @@ class Info(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        return Response({"email": request.user.email})
+        user = AllClientSerializer(request.user)
+        return Response(user.data)
+    def put(self,request):
+        user = AllClientSerializer(request.user, data = request.data, partial= True)
+        if user.is_valid():
+            user.save()
+            return Response(user.data)
+        return Response(user.errors, status = HTTP_400_BAD_REQUEST)

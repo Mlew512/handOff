@@ -3,7 +3,6 @@
       "model": "encounters_app.encounter",
       "pk": 1,
       "fields": {
-        "provider_id": 8,
         "patient_id": 1,
         "admitted_date": "2023-12-06T12:30:00",
         "admitted": true,
@@ -14,7 +13,6 @@
       "model": "encounters_app.encounter",
       "pk": 2,
       "fields": {
-        "provider_id": 8,
         "patient_id": 2,
         "admitted_date": "2023-12-06T13:45:00",
         "admitted": true,
@@ -25,7 +23,6 @@
       "model": "encounters_app.encounter",
       "pk": 3,
       "fields": {
-        "provider_id": 9,
         "patient_id": 3,
         "admitted_date": "2023-12-06T14:30:00",
         "admitted": true,
@@ -36,7 +33,6 @@
       "model": "encounters_app.encounter",
       "pk": 4,
       "fields": {
-        "provider_id": 9,
         "patient_id": 4,
         "admitted_date": "2023-12-06T15:15:00",
         "admitted": true,
@@ -47,7 +43,7 @@
       "model": "encounters_app.encounter",
       "pk": 5,
       "fields": {
-        "provider_id": 10,
+
         "patient_id": 5,
         "admitted_date": "2023-12-06T16:00:00",
         "admitted": true,
@@ -58,7 +54,7 @@
       "model": "encounters_app.encounter",
       "pk": 6,
       "fields": {
-        "provider_id": 10,
+
         "patient_id": 6,
         "admitted_date": "2023-12-06T16:45:00",
         "admitted": true,
@@ -69,7 +65,7 @@
       "model": "encounters_app.encounter",
       "pk": 7,
       "fields": {
-        "provider_id": 11,
+
         "patient_id": 7,
         "admitted_date": "2023-12-06T17:30:00",
         "admitted": true,
@@ -80,7 +76,7 @@
       "model": "encounters_app.encounter",
       "pk": 8,
       "fields": {
-        "provider_id": 11,
+
         "patient_id": 8,
         "admitted_date": "2023-12-06T18:15:00",
         "admitted": true,
@@ -91,7 +87,7 @@
       "model": "encounters_app.encounter",
       "pk": 9,
       "fields": {
-        "provider_id": 12,
+
         "patient_id": 9,
         "admitted_date": "2023-12-06T19:00:00",
         "admitted": true,
@@ -102,7 +98,7 @@
       "model": "encounters_app.encounter",
       "pk": 10,
       "fields": {
-        "provider_id": 12,
+
         "patient_id": 10,
         "admitted_date": "2023-12-06T19:45:00",
         "admitted": true,

@@ -16,9 +16,9 @@ from rest_framework import status
 
 # Create your views here.
 class All_Encounters(APIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
         encounters = Encounter.objects.all()
-        ser_enounter = AllEncounterSerializer(encounters, many=True)
+        ser_encounter = AllEncounterSerializer(encounters, many=True)
         return Response(ser_encounter.data)
