@@ -69,3 +69,13 @@ class An_Assessment(APIView):
         assessment = get_object_or_404(Assessment, id=assessment_id)
         assessment.delete()
         return Response(status = HTTP_204_NO_CONTENT)
+    
+    def put(self,request, assessment_id):
+        assessment=get_object_or_404(Assessment, id= assessment_id)
+        serialized = AnAssessmentSerializer(assessment, data=request.data, partial =True)
+        if serialized.is_valid():
+            serialized.save()
+            return Response(serialized.data, status=HTTP_204_NO_CONTENT)
+        else:
+            print(assessment.errors)
+            return Response(assessment.errors, status= HTTP_400_BAD_REQUEST)
