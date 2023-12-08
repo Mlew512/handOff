@@ -7,3 +7,8 @@ class AllEncounterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Encounter
         fields =["id","patient_id","admitted_date","admitted","diagnosis"]
+
+class AnEncounterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Encounter
+        fields =["id","patient_id","admitted_date","admitted","diagnosis"]

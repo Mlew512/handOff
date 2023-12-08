@@ -12,3 +12,8 @@ class AllAssessmentSerializer(serializers.ModelSerializer):
         model = Assessment
         # fields= "__all__"
         fields =["encounter","provider","assessment_time","neuro","cardio","respiratory","gastrointestinal","genitourinary"]  
+
+class AnAssessmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Assessment
+        fields = "__all__"

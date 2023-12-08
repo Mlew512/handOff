@@ -57,6 +57,10 @@ class A_patient(APIView):
         else:
             return Response("No client matching credentials", status=HTTP_404_NOT_FOUND)
         
+    def delete(self,request,patient_id):
+        patient = get_object_or_404(Patient, id=patient_id)
+        patient.delete()
+        return Response(status = HTTP_204_NO_CONTENT)
 
 # ----------view patients by unit admitted to--------
 
