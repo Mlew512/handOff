@@ -45,3 +45,13 @@ class An_Encounter(APIView):
         encounter = get_object_or_404(Encounter, id=encounter_id)
         encounter.delete()
         return Response(status = HTTP_204_NO_CONTENT)
+
+    def put(self,request, encounter_id):
+        encounter=get_object_or_404(Encounter, id= encounter_id)
+        serialized = AnEncounterSerializer(encounter, data=request.data, partial =True)
+        if serialized.is_valid():
+            serialized.save()
+            return Response(serialized.data, status=HTTP_204_NO_CONTENT)
+        else:
+            print(encounter.errors)
+            return Response(encounter.errors, status= HTTP_400_BAD_REQUEST)

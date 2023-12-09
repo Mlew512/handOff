@@ -12,7 +12,6 @@ from .serializers import AllPatientsSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 
-
 # Create your views here.\
 # ---get all patients----
 class All_patients(APIView):
@@ -35,11 +34,6 @@ class All_patients(APIView):
 
 class A_patient(APIView):
     permission_classes = [IsAuthenticated]
-    # ---get patient by patient ID-----
-    # def get(self, request, patient_id):
-    #     patient = Patient.objects.get(id=patient_id)
-    #     serializer = AllPatientsSerializer(patient)
-    #     return Response(serializer.data)
     
     def get(self, request, *args, **kwargs):
         patient_id = kwargs.get('patient_id')
@@ -60,19 +54,20 @@ class A_patient(APIView):
     def delete(self,request,patient_id):
         patient = get_object_or_404(Patient, id=patient_id)
         patient.delete()
-        return Response(status = HTTP_204_NO_CONTENT)
+        return Response(status = HTTP_204_NO_CONTENT)    
+    
+    def put(self,request, patient_id):
+        patient=get_object_or_404(Patient, id=patient_id)
+        serialized = AllPatientsSerializer(patient, data=request.data, partial =True)
+        if serialized.is_valid():
+            serialized.save()
+            return Response(serialized.data, status=HTTP_204_NO_CONTENT)
+        else:
+            print(patient.errors)
+            return Response(patient.errors, status= HTTP_400_BAD_REQUEST)
+    
+
 
 # ----------view patients by unit admitted to--------
-
-
-# class Item_by_category(APIView):
-#     def get(self, request, category):
-#         catitems = category.title()
-#         items = Item.objects.filter(category=catitems)
-#         # print(items, "filtered")
-#         serializer = AllItemSerializer(items, many=True)
-#         # print(serializer,"serialized")
-#         return Response(serializer.data)
-
 
 # ------------modify patient info (unit admitted to/ PMH/ Allergies)------
