@@ -8,11 +8,11 @@
           "patient": 1,
           "provider": 1,    
           "assessment_time": "2023-12-06T12:45:00",
-          "neuro": "Stable",
-          "cardio": "Normal",
-          "respiratory": "Clear",
-          "gastrointestinal": "No issues",
-          "genitourinary": "Normal"
+          "neuro": "alert and oriented x4, pearrla, pupils 3mm, moves all extremities, sensation intact, speech clear",
+          "cardio": "heart sounds s1s2 audible, cappilary refill < 3 seconds, pulses +2 all extremities, tachycardic, normotensive",
+          "respiratory": "lungs clear to auscultation, left lower lobe crackles",
+          "gastrointestinal": "Bowel sounds active x4 quadrants, 1 bowelmovement at 1130, diet NPO",
+          "genitourinary": "foley catheter, urine output dark yellow at 30ml/hr"
         }
       },
       {
@@ -23,11 +23,11 @@
           "patient": 1,
           "provider": 1,
           "assessment_time": "2023-12-06T13:30:00",
-          "neuro": "Responsive",
-          "cardio": "Elevated heart rate",
-          "respiratory": "Slightly labored",
-          "gastrointestinal": "Mild discomfort",
-          "genitourinary": "Normal"
+          "neuro": "alert and oriented x2, pearrla, pupils 3mm, moves all extremities, sensation intact, speech muffled",
+          "cardio": "heart sounds s1s2 audible, cappilary refill < 3 seconds, pulses +2 all extremities, tachycardic, normotensive",
+          "respiratory": "lungs clear to auscultation, left lower lobe crackles",
+          "gastrointestinal": "Bowel sounds active x4 quadrants, diet NPO",
+          "genitourinary": "foley catheter, urine output dark yellow at 50ml/hr"
         }
       },
       {
@@ -41,8 +41,8 @@
           "neuro": "Alert",
           "cardio": "Stable",
           "respiratory": "Clear",
-          "gastrointestinal": "No issues",
-          "genitourinary": "Normal"
+          "gastrointestinal": "Bowel sounds active x4 quadrants, diet NPO",
+          "genitourinary": "foley catheter, urine output dark yellow at 50ml/hr"
         }
       },
     {
