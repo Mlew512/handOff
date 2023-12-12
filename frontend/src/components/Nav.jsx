@@ -90,23 +90,19 @@ const NavBar = () => {
           <div className="ml-auto">
             {isLoggedIn ? (
               <>
-                <Link to="/home">Home</Link>
+                <Link to="/home"> Home</Link>
+                <Link to="/patients"> All patients</Link>
                 <button onClick={logOut}>Log out</button>
               </>
             ) : (
               <>
-                <Link to="/">Register</Link>
-                <Link to="/login">Log In</Link>
+                <Link to="/"> Register</Link>
+                <Link to="/login"> Log In</Link>
               </>
             )}
           </div>
         </div>
       </nav>
-
-      {/* Add these lines to include Bootstrap JavaScript and Popper.js */}
-      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </>
   );
 };

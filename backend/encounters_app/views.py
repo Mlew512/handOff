@@ -55,3 +55,9 @@ class An_Encounter(APIView):
         else:
             print(encounter.errors)
             return Response(encounter.errors, status= HTTP_400_BAD_REQUEST)
+        
+class All_Encounters_Pt(APIView):
+    def get(self, request, patient_id):
+        encounters = Encounter.objects.filter(patient_id= patient_id)
+        ser_encounter = AnEncounterSerializer(encounters, many=True)
+        return Response(ser_encounter.data)

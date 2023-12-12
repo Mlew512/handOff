@@ -79,3 +79,11 @@ class An_Assessment(APIView):
         else:
             print(assessment.errors)
             return Response(assessment.errors, status= HTTP_400_BAD_REQUEST)
+        
+class An_Assessment_Id(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, encounter_id):
+        assessments = Assessment.objects.filter(encounter_id = encounter_id)
+        serassessment = AnAssessmentSerializer(assessments)
+        return Response(serassessment)

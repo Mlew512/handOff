@@ -4,6 +4,9 @@ import App from "./App";
 import Login from "./pages/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import Register from "./pages/RegisterPage";
+import APatient from "./pages/APatient";
+import Patients from "./pages/Patients";
+import Encounters from "./pages/Encounters";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +25,18 @@ const router = createBrowserRouter([
         path: "home/",
         element: <Home />,
       },
+      {
+        path:"patient/:id/",
+        element:<APatient />
+    },
+    {
+      path:"patients/",
+      element:<Patients />
+  },
+  {
+    path:"encounters/:id/",
+    element:<Encounters/>
+},
     ],
     errorElement: <NotFoundPage />,
   },
