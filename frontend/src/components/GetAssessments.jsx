@@ -6,12 +6,12 @@ import { api } from "../utilities";
 import Card from "react-bootstrap/Card";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
-
-const Assessments= () => {
+// getting all assessments by encounter ID
+const Assessments = () => {
   const [patient, setPatient] = useState({});
   const [loading, setLoading] = useState(true);
-  const [encounter, setEncounter] = useState({});
-  const[encounterDate, setEncounterDate] = useState("")
+  const [summarized, setSummarized] = useState("");
+  const [assessments, setAssessments] = useState({});
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const { id } = useParams();
@@ -25,25 +25,44 @@ const Assessments= () => {
     // console.log(headers)
     try {
       setLoading(true);
-      const response = await api.get(`v1/encounters/${id}/`, {
+      const response = await api.get(`v1/assessments/encounter/${id}/`, {
         headers,
       });
       console.log(response.data);
-      setEncounter(response.data);
-      const inputDate = new Date(response.data.admitted_date);
-      const formatted_data= inputDate.toISOString().split('T')[0];
-      setEncounterDate(formatted_data)
-      
+      setAssessments(response.data);
     } catch (error) {
-        setError(error.message);
-    } finally {
-      setLoading(false);
+      setError(error.message);
     }
   };
 
   useEffect(() => {
-    getEncounter();
-  }, [id]);
+    getAssessments();
+  }, []);
+
+  const getSummary= async () => {
+    const token = localStorage.getItem("token");
+
+    const headers = {
+      Authorization: `token ${token}`,
+    };
+    // console.log(headers)
+    try {
+      setLoading(true);
+      const response = await api.post(`v1/summary/`,{prompt:{assessments}}, {headers});
+      console.log(response.data.response_content);
+      // console.log(assessments)
+      setSummarized(response.data.response_content);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);  
+    }
+  };
+
+  useEffect(() => {
+    getSummary();
+  }, []);
+
 
   return (
     <>
@@ -52,15 +71,26 @@ const Assessments= () => {
       {!loading && !error && (
         <>
           <div>
-            <h2>Encounter</h2>
-            <Card style={{ width: "18rem" }}>
-              <Card.Title>{encounterDate}</Card.Title>
+            <Card style={{ width: "50rem" }}>
+              <Card.Title>Assessment Summary</Card.Title>
               <Card.Body>
-                {encounter.patient_id.first_name} {encounter.patient_id.last_name}
-                <br/>
-                {encounter.patient_id.date_of_birth}
-                <br/>
-                {encounter.diagnosis}
+                <h3>Neuro</h3>
+                {summarized["neuro"].summary}
+              <br/>
+                <h3>Cardiac:</h3>
+                {summarized.cardiac.summary}
+              <br/>
+              <h3>Respiratory:</h3>
+              {summarized.respiratory.summary}
+              <br/>
+              <h3>GI:</h3>
+              {summarized.GI.summary}
+              <br/>
+              <h3>GU:</h3>
+              {summarized.GU.summary}
+              <br/>
+              <h3>Careplan Recommendation:</h3>
+              {summarized["careplan Recommendation"]}
               </Card.Body>
             </Card>
           </div>

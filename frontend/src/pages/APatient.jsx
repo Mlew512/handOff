@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Cards from "../components/Card";
@@ -30,8 +29,6 @@ const APatient = () => {
       setPatient(response.data);
     } catch (error) {
       setError(error.message);
-    } finally {
-      setLoading(false);
     }
   };
   const getEncounter = async () => {
@@ -46,7 +43,7 @@ const APatient = () => {
       const response = await api.get(`v1/encounters/patient/${id}/`, {
         headers,
       });
-      console.log(response.data);
+    //   console.log(response.data);
       setEncounter(response.data);
     } catch (error) {
       setError(error.message);
@@ -57,8 +54,10 @@ const APatient = () => {
 
   useEffect(() => {
     getPatient();
-    getEncounter();
   }, [id]);
+  useEffect(() => {
+    getEncounter();
+  }, [patient]);
 
   // Function to summarize assessment data for the last 12 hours
   const summarizeAssessmentData = () => {
@@ -89,7 +88,7 @@ const APatient = () => {
           </div>
           <div>
             <h2>Most Recent Encounter</h2>
-            <Card style={{ width: "18rem" }}>
+            {encounter[0] ? <Card style={{ width: "18rem" }}>
               <Card.Title>{encounter[0].admitted_date}</Card.Title>
               <Card.Body>
                 {encounter[0].diagnosis}
@@ -100,7 +99,7 @@ const APatient = () => {
                   Go to Encounter
                 </Button>
               </Card.Body>
-            </Card>
+            </Card> : <h2>No encounter</h2>}
           </div>
         </>
       )}

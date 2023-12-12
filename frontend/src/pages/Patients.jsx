@@ -15,10 +15,10 @@ const Patients = () => {
         const headers = {
             'Authorization': `token ${token}`,
         };
-        console.log(headers)
+        // console.log(headers)
         try {
             setLoading(true);
-            const response = await api.get(`v1/patients`, { headers });
+            const response = await api.get(`v1/patients`, { headers },)
             // console.log(response.data)
             setPatients(response.data);
         } catch (error) {
