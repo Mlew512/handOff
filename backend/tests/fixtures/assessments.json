@@ -37,10 +37,10 @@
           "encounter": 1,
           "patient": 1,
           "provider": 1,
-          "assessment_time": "2023-12-06T14:15:00",
-          "neuro": "Alert",
-          "cardio": "Stable",
-          "respiratory": "Clear",
+          "assessment_time": "2023-12-06T15:30:00",
+          "neuro": "alert and oriented x4, pearrla, pupils 3mm, moves all extremities, sensation intact, speech clear",
+          "cardio": "heart sounds s1s2 audible, cappilary refill < 3 seconds, pulses +2 all extremities, tachycardic, normotensive",
+          "respiratory": "lungs clear to auscultation, left lower lobe crackles",
           "gastrointestinal": "Bowel sounds active x4 quadrants, diet NPO",
           "genitourinary": "foley catheter, urine output dark yellow at 50ml/hr"
         }
