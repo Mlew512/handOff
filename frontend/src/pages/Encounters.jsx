@@ -81,7 +81,7 @@ const Encounters= () => {
         <>
           <div>
             <h2>Encounter</h2>
-            <Card style={{ width: "18rem" }}>
+            <Card style={{ width: "18rem", margin:"2rem" }}>
               <Card.Title>Admitted: {encounterDate}</Card.Title>
               <Card.Img variant="top" src={image}/>
               <Card.Body>
@@ -89,9 +89,17 @@ const Encounters= () => {
                 <br/>
                 DOB: {encounter.patient_id.date_of_birth}
                 <br/>
+                Pt ID: {encounter.patient_id.id}
+                <br/>
                 DX: {encounter.diagnosis}
               </Card.Body>
             </Card>
+            <Button variant="primary" onClick={() => navigate(`/encounter/${id}/addassessment/${encounter.patient_id.id}`)}>
+          add an assessment
+        </Button>
+        <Button variant="primary" onClick={() => navigate(`/allassessments/${id}`)}>
+          view all assessments for encounter
+        </Button>
             <h2>Assessment summary</h2>
           </div>
           <Assessments id={id} />

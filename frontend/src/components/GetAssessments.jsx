@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "../utilities";
 import Card from "react-bootstrap/Card";
+import { useNavigate } from "react-router-dom";
+import Button from "react-bootstrap/esm/Button";
 
 // getting all assessments by encounter ID
 const Assessments = () => {
@@ -10,6 +12,7 @@ const Assessments = () => {
   const [assessments, setAssessments] = useState({});
   const [error, setError] = useState(null);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const getAssessments = async () => {
     const token = localStorage.getItem("token");
@@ -24,10 +27,12 @@ const Assessments = () => {
       const response = await api.get(`v1/assessments/encounter/${id}/`, {
         headers,
       });
-      // console.log(response.data);
+      console.log(response.data);
       setAssessments(response.data);
     } catch (error) {
       setError(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -56,19 +61,19 @@ const Assessments = () => {
     }
   };
 
-  useEffect(() => {
-    if (Object.keys(assessments).length > 0) {
-      getSummary();
-    }
-  }, [assessments]);
+  const handleGenerateSummary = () => {
+    getSummary();
+  };;
 
   return (
     <>
-      {loading && <p>Loading...</p>}
+        <br/>
+      {loading && <p>Generating Assessment Summary....</p>}
       {error && <p>Error: {error}</p>}
       {!loading && !error && (
         <>
           <div>
+          <Button onClick={handleGenerateSummary}>Generate Summary</Button>
             <Card style={{ width: "50rem" }}>
               <Card.Title>Assessment Summary</Card.Title>
               <Card.Body>

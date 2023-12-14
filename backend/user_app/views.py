@@ -30,11 +30,17 @@ class Log_in(APIView):
         email = request.data.get("email")
         password = request.data.get("password")
         client = authenticate(username=email, password=password)
+        
         if client:
+            user_id = client.id
+
+            # You can store the user ID in the session if needed
+            request.session["user_id"] = user_id
+
             token, created = Token.objects.get_or_create(user=client)
-            return Response({"token": token.key, "client": client.email})
+            return Response({"token": token.key, "client": client.email, "user_id": user_id})
         else:
-            return Response("incorrect username or password", status=HTTP_404_NOT_FOUND)
+            return Response("Incorrect username or password", status=HTTP_404_NOT_FOUND)
 
 class Log_out(APIView):
     authentication_classes = [TokenAuthentication]
@@ -42,6 +48,9 @@ class Log_out(APIView):
 
     def post(self, request):
         request.user.auth_token.delete()
+        if "user_id" in request.session:
+            del request.session["user_id"]
+            
         return Response(status=HTTP_204_NO_CONTENT)
 
 class Info(APIView):

@@ -15,7 +15,9 @@ const Login = () => {
     console.log(response);
     let token = response.data.token;
     let user = response.data.user;
+    let user_id = response.data.user_id
     localStorage.setItem("token", token);
+    localStorage.setItem('user_id', user_id);
     api.defaults.headers.common["Authorization"] = `Token ${token}`;
     setUser(user);
     navigate("/home");

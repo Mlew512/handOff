@@ -7,6 +7,8 @@ import Register from "./pages/RegisterPage";
 import APatient from "./pages/APatient";
 import Patients from "./pages/Patients";
 import Encounters from "./pages/Encounters";
+import AddAssessments from "./components/AddAssessment";
+import AllAssessments from "./pages/AllAssessments";
 
 const router = createBrowserRouter([
   {
@@ -26,17 +28,25 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path:"patient/:id/",
-        element:<APatient />
-    },
-    {
-      path:"patients/",
-      element:<Patients />
-  },
-  {
-    path:"encounters/:id/",
-    element:<Encounters/>
-},
+        path: "patient/:id/",
+        element: <APatient />, 
+      },
+      {
+        path: "patients/",
+        element: <Patients />,
+      },
+      {
+        path: "encounters/:id/",
+        element: <Encounters />,
+      },
+      {
+        path: "encounter/:id/addassessment/:pt_id/",
+        element: <AddAssessments />,
+      },
+      {
+        path: "allassessments/:id/",
+        element: <AllAssessments />,
+      },
     ],
     errorElement: <NotFoundPage />,
   },
