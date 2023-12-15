@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import Row from "react-bootstrap/Row";
 import { api } from "../utilities";
 import { useNavigate } from "react-router-dom";
-import { all } from "axios";
 
 const AddPatient = () => {
   const { id } = useParams();

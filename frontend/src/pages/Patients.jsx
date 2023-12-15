@@ -1,11 +1,13 @@
-import Cards from "../components/Card";
-import axios from "axios";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { api } from "../utilities";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/esm/Button";
+import Cards from "../components/Card";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+
 const Patients = () => {
-  const [patients, setPatients] = useState({});
+  const [patients, setPatients] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -17,11 +19,10 @@ const Patients = () => {
       const headers = {
         Authorization: `token ${token}`,
       };
-      // console.log(headers)
+
       try {
         setLoading(true);
         const response = await api.get(`v1/patients`, { headers });
-        // console.log(response.data)
         setPatients(response.data);
       } catch (error) {
         setError(error.message);
@@ -40,9 +41,10 @@ const Patients = () => {
       {error && <p>Error: {error}</p>}
       {!loading && !error && (
         <>
-          {patients.map((patient, idx) => (
-            <div key={idx}>
-              <Cards
+          <Row className="row-cols-1 row-cols-md-2 row-cols-lg-3">
+            {patients.map((patient) => (
+              <Col key={patient.id} className="mb-4">
+                <Cards
                 id={patient.id}
                 firstName={patient.first_name}
                 lastName={patient.last_name}
@@ -50,8 +52,9 @@ const Patients = () => {
                 pmh={patient.past_medical_history}
                 allergies={patient.allergies}
               />
-            </div>
-          ))}
+              </Col>
+            ))}
+          </Row>
         </>
       )}
     </>

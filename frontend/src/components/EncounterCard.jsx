@@ -12,6 +12,7 @@ function EncounterCard({ admitted_date, diagnosis, id }) {
       <Card.Title>{admitted_date}</Card.Title>
       <Card.Body>
         {diagnosis}
+        <br/>
         <Button
           variant="primary"
           onClick={() =>

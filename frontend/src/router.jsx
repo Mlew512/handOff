@@ -14,6 +14,7 @@ import EditAssessment from "./pages/EditAssessment";
 import AddEncounter from "./pages/AddEncounter";
 import EditEncounter from "./pages/EditEncounter";
 import AddPatient from "./pages/AddPatient";
+import EditPatient from "./pages/EditPatient";
 
 const router = createBrowserRouter([
   {
@@ -71,6 +72,10 @@ const router = createBrowserRouter([
       {
         path: "encounter/:id/edit/",
         element: <EditEncounter />,
+      },
+      {
+        path: "patient/:id/edit/",
+        element: <EditPatient />,
       },
       {
         path: "patients/add/",

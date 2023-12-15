@@ -33,6 +33,10 @@ function APatientCard({ firstName, lastName, id, age, pmh, allergies }) {
           allergies: {allergies}
           <br />
           Past Medical history: {pmh}
+          <br/>
+          <Button onClick={() =>
+            navigate(`../patient/${id}/edit`)
+          }>Edit Patient </Button>
         </Card.Text>
       </Card.Body>
     </Card>
