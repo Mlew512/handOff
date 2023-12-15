@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Cards from "../components/Card";
+import APatientCard from "../components/APatientCard.jsx";
 import { api } from "../utilities";
-import Card from "react-bootstrap/Card";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
-import AllAssessments from "../components/GetLastAssessment.jsx";
 import LastAssessments from "../components/GetLastAssessment.jsx";
+import EncounterCards from "../components/EncounterCard.jsx";
 
 const APatient = () => {
   const [patient, setPatient] = useState({});
@@ -40,16 +39,14 @@ const APatient = () => {
     const headers = {
       Authorization: `token ${token}`,
     };
-    // console.log(headers)
     try {
       setLoading(true);
       const response = await api.get(`v1/encounters/patient/${id}/`, {
         headers,
       });
-    //   console.log(response.data);
       setEncounter(response.data);
+      //getting assessment at end of list(most recent)
       setLastAssesment(response.data.length-1)
-      console.log(response.data.length-1)
     } catch (error) {
       setError(error.message);
     } finally {
@@ -64,15 +61,13 @@ const APatient = () => {
     getEncounter();
   }, [patient]);
 
-  // Function to summarize assessment data for the last 12 hours
-
   return (
     <>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
       {!loading && !error && (
         <>
-          <Cards
+          <APatientCard
             id={patient.id}
             firstName={patient.first_name}
             lastName={patient.last_name}
@@ -80,23 +75,35 @@ const APatient = () => {
             pmh={patient.past_medical_history}
             allergies={patient.allergies}
           />
+          <Button onClick={() =>
+            navigate(`../patient/${id}/addencounter`)
+          }>Add Encounter </Button>
           <div>
             <LastAssessments id={id}/>
           </div>
           <div> 
             <h2>Most Recent Encounter</h2>
-            {encounter[0] ? <Card style={{ width: "18rem", margin:"2rem"}}>
-              <Card.Title>{encounter[lastAssessment].admitted_date}</Card.Title>
-              <Card.Body>
-                {encounter[lastAssessment].diagnosis}
-                <Button
-                  variant="primary"
-                  onClick={() => navigate(`../encounters/${encounter[lastAssessment].id}`)}
-                >
-                  Go to Encounter
-                </Button>
-              </Card.Body>
-            </Card> : <h2>No encounter</h2>}
+            {encounter[lastAssessment] ? <EncounterCards 
+            admitted_date={encounter[lastAssessment].admitted_date} 
+            diagnosis={encounter[lastAssessment].diagnosis} 
+            id={encounter[lastAssessment].id} />
+            : <h2>No encounter</h2>}
+          </div>
+          <div>
+            <h2>All Encounters</h2>
+            {encounter.map((encount, idx) => (
+              <div key={idx}>
+                {lastAssessment > 1 ? (
+                  <EncounterCards
+                    admitted_date={encount.admitted_date}
+                    diagnosis={encount.diagnosis}
+                    id={encount.id}
+                  />
+                ) : (
+                  <h2>No more</h2>
+                )}
+              </div>
+            ))}
           </div>
         </>
       )}

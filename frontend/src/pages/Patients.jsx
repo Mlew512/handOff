@@ -1,39 +1,41 @@
 import Cards from "../components/Card";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useOutletContext } from "react-router-dom";
 import { api } from "../utilities";
-
+import { useNavigate } from "react-router-dom";
+import Button from "react-bootstrap/esm/Button";
 const Patients = () => {
-    const [patients, setPatients] = useState({});
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+  const [patients, setPatients] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
   useEffect(() => {
     const getPatients = async () => {
-        const token = localStorage.getItem('token'); 
+      const token = localStorage.getItem("token");
 
-        const headers = {
-            'Authorization': `token ${token}`,
-        };
-        // console.log(headers)
-        try {
-            setLoading(true);
-            const response = await api.get(`v1/patients`, { headers },)
-            // console.log(response.data)
-            setPatients(response.data);
-        } catch (error) {
-            setError(error.message);
-        } finally {
-            setLoading(false);
-        }
-    }
+      const headers = {
+        Authorization: `token ${token}`,
+      };
+      // console.log(headers)
+      try {
+        setLoading(true);
+        const response = await api.get(`v1/patients`, { headers });
+        // console.log(response.data)
+        setPatients(response.data);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
     getPatients();
   }, []);
 
-
-return (
+  return (
     <>
+      <Button onClick={() => navigate(`/patients/add`)}>Add a Patient</Button>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
       {!loading && !error && (

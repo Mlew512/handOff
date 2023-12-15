@@ -3,8 +3,9 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { api } from "../utilities";
 
-function AssessCard({
+function AnAssessCard({
   firstName,
   id,
   lastName,
@@ -19,9 +20,12 @@ function AssessCard({
   respiratory,
   gi,
   gu,
+  pt_id,
 }) {
   const navigate = useNavigate();
   const [ageInYears, setAgeInYears] = useState();
+  const [assessId, setAssesId] = useState(id);
+
 
   function calculateAge() {
     const currentDate = new Date();
@@ -31,13 +35,30 @@ function AssessCard({
     // console.log(`The age is: ${ageInYears} years`);
   }
 
+  const DeleteThem = async () => {
+    const token = localStorage.getItem("token");
+
+    const headers = {
+      Authorization: `token ${token}`,
+    };
+
+    let response = await api
+      .delete(`v1/assessments/${id}/`, { headers })
+      .catch((err) => {
+        alert("could not delete this assessment");
+        console.error(err);
+      });
+    if (response.status === 204) {
+      alert("assessment deleted")
+      navigate(`/patient/${pt_id}`)
+    }
+  };
   useEffect(() => {
     calculateAge();
   }, [age]);
 
   return (
     <Card style={{ width: "80rem", margin: "1rem" }}>
-      {/* <Card.Img variant="top" src={image} /> */}
       <Card.Body>
         <Card.Title>
           {firstName} {lastName}
@@ -58,23 +79,20 @@ function AssessCard({
           <h3>neuro:</h3>
           {neuro}
           <br />
-          <h3>cardio:</h3>
-          {cardio}
-          <br />
-          <h3>respiratory:</h3>
-          {respiratory}
-          <br />
-          <h3>GI:</h3>
-          {gi}
-          <br />
           <h3>GU:</h3>
           {gu}
         </Card.Text>
-        <Button variant="primary" onClick={() => navigate(`/assessments/${id}/`)}>
-          Go to Assessment
+        <Button
+          variant="primary"
+          onClick={() => navigate(`/assessments/${assessId}/edit/`)}
+        >
+          Edit Assessment
+        </Button>
+        <Button variant="danger" onClick={DeleteThem}>
+          Delete Assessment
         </Button>
       </Card.Body>
     </Card>
   );
 }
-export default AssessCard;
+export default AnAssessCard;

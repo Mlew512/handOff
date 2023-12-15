@@ -9,6 +9,11 @@ import Patients from "./pages/Patients";
 import Encounters from "./pages/Encounters";
 import AddAssessments from "./components/AddAssessment";
 import AllAssessments from "./pages/AllAssessments";
+import AnAssessment from "./pages/AnAssessment";
+import EditAssessment from "./pages/EditAssessment";
+import AddEncounter from "./pages/AddEncounter";
+import EditEncounter from "./pages/EditEncounter";
+import AddPatient from "./pages/AddPatient";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +51,30 @@ const router = createBrowserRouter([
       {
         path: "allassessments/:id/",
         element: <AllAssessments />,
+      },
+      {
+        path: "assessments/:id/",
+        element: <AnAssessment />,
+      },
+      {
+        path: "assessments/:id/edit/",
+        element: <EditAssessment />,
+      },
+      {
+        path: "patient/:id/addencounter",
+        element: <AddEncounter />,
+      },
+      {
+        path: "encounter/:id/edit/",
+        element: <EditEncounter />,
+      },
+      {
+        path: "encounter/:id/edit/",
+        element: <EditEncounter />,
+      },
+      {
+        path: "patients/add/",
+        element: <AddPatient />,
       },
     ],
     errorElement: <NotFoundPage />,

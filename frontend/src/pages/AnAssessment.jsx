@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { api } from "../utilities";
-import AssessCard from "../components/AssessCard";
+import AnAssessCard from "../components/AnAssessCard";
 
 
-const AllAssessments = () => {
+const AnAssessment = () => {
     const [loading, setLoading] = useState(true);
-    const [assessments, setAssessments] = useState([]);
+    const [assessment, setAssessment] = useState([]);
     const [error, setError] = useState(null);
     const { id } = useParams();
-    const navigate = useNavigate();
   
-    const getAssessments = async () => {
+    const getAssessment = async () => {
       const token = localStorage.getItem("token");
   
       const headers = {
@@ -20,11 +19,11 @@ const AllAssessments = () => {
   
       try {
         setLoading(true);
-        const response = await api.get(`v1/assessments/encounter/${id}/`, {
+        const response = await api.get(`v1/assessments/${id}/`, {
           headers,
         });
         console.log(response.data)
-        setAssessments(response.data);
+        setAssessment(response.data);
   
   
       
@@ -36,13 +35,9 @@ const AllAssessments = () => {
     };
   
     useEffect(() => {
-      getAssessments();
+      getAssessment();
     }, []);
   
-    const handleGoToAnAssessments = () => {
-      // Navigate to your desired path
-      navigate("/path-to-an-assessment");
-    };
 
 return (
     <>
@@ -50,9 +45,7 @@ return (
       {error && <p>Error: {error}</p>}
       {!loading && !error && (
         <>
-          {assessments.map((assessment, idx) => (
-            <div key={idx}>
-              <AssessCard
+              <AnAssessCard
                 time={assessment.assessment_time}
                 provider={assessment.provider.profession}
                 pFirstName={assessment.provider.first_name}
@@ -60,19 +53,17 @@ return (
                 firstName={assessment.encounter.patient_id.first_name}
                 lastName={assessment.encounter.patient_id.last_name}
                 age={assessment.encounter.patient_id.date_of_birth}
+                pt_id={assessment.encounter.patient_id.id}
                 neuro={assessment.neuro}
                 cardio={assessment.cardio}
                 respiratory={assessment.respiratory}
                 gi={assessment.gastrointestinal}
                 gu={assessment.genitourinary}
                 id={assessment.id}
-                
-              />
-            </div>
-          ))}
+             />
         </>
       )}
     </>
   );
 };
-export default AllAssessments;
+export default AnAssessment;

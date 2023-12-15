@@ -6,13 +6,12 @@ import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/esm/Button";
 
 // getting all assessments by encounter ID
-const Assessments = () => {
+const SumerizeAssessments = () => {
   const [loading, setLoading] = useState(true);
   const [summarized, setSummarized] = useState("");
   const [assessments, setAssessments] = useState({});
   const [error, setError] = useState(null);
   const { id } = useParams();
-  const navigate = useNavigate();
 
   const getAssessments = async () => {
     const token = localStorage.getItem("token");
@@ -23,14 +22,12 @@ const Assessments = () => {
     // console.log(headers)
     try {
       setLoading(true);
-      // console.log(JSON.stringify({ prompt: { assessments } }));
       const response = await api.get(`v1/assessments/encounter/${id}/`, {
         headers,
       });
-      console.log(response.data);
       setAssessments(response.data);
     } catch (error) {
-      setError(error.message);
+      setError("No assessments yet!");
     } finally {
       setLoading(false);
     }
@@ -63,7 +60,7 @@ const Assessments = () => {
 
   const handleGenerateSummary = () => {
     getSummary();
-  };;
+  };
 
   return (
     <>
@@ -93,7 +90,7 @@ const Assessments = () => {
                 {summarized && summarized.GU && summarized.GU.summary}
                 <br />
                 <h3>Careplan Recommendation:</h3>
-                {summarized && summarized.careplan&& summarized.careplan}
+                {summarized && summarized.careplan && summarized.careplan}
               </Card.Body>
             </Card>
           </div>
@@ -103,4 +100,4 @@ const Assessments = () => {
   );
 };
 
-export default Assessments;
+export default SumerizeAssessments;

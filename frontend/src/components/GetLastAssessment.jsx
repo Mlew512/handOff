@@ -51,9 +51,9 @@ const LastAssessments = () => {
       {!loading && !error && (
         <>
           <div>
-            {/* <Button onClick={handleGoToAllAssessments}>
+            <Button onClick={handleGoToAllAssessments}>
               Go to all assessments
-            </Button> */}
+            </Button>
             <Card style={{ width: "50rem" }}>
               <Card.Title>Most Recent Assessment </Card.Title>
               <Card.Body>

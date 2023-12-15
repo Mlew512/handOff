@@ -11,7 +11,7 @@ class AllAssessmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Assessment
         # fields= "__all__"
-        fields =["encounter","provider","assessment_time","neuro","cardio","respiratory","gastrointestinal","genitourinary"]  
+        fields =["id","encounter","provider","assessment_time","neuro","cardio","respiratory","gastrointestinal","genitourinary"]  
 
 class AnAssessmentSerializer(serializers.ModelSerializer):
     class Meta:

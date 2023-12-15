@@ -20,7 +20,12 @@ class Noun_Project(APIView):
 
         response = requests.get(endpoint, auth=auth)
         responseJSON = response.json()
-        return Response(responseJSON["icons"][0]["thumbnail_url"])
+        if response.status_code == 200:
+            responseJSON = response.json()
+            return Response(responseJSON["icons"][0]["thumbnail_url"])
+        else:
+            return Response({"error": "Failed to fetch Noun Project icon"}, status=response.status_code)
+
 
 class Gptai_Api(APIView):
     def post(self, request):
