@@ -2,18 +2,17 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { api } from "../utilities";
+import Button from "react-bootstrap/esm/Button";
 
 const NavBar = () => {
   const [searchValue, setSearchValue] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState();
   const navigate = useNavigate();
 
-
   useEffect(() => {
-    // Check if the token exists in local storage
     const token = localStorage.getItem("token");
-    setIsLoggedIn(!!token); // Set isLoggedIn to true if the token exists, otherwise false
-  }, []);
+    setIsLoggedIn(!!token);
+  }, [isLoggedIn]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -22,18 +21,14 @@ const NavBar = () => {
 
   const logOut = async () => {
     try {
-      // Retrieve the authentication token from localStorage
       const authToken = localStorage.getItem("token");
-  
+
       if (authToken) {
-        // Set the Authorization header
         api.defaults.headers.common["Authorization"] = `Token ${authToken}`;
-  
-        // Send the logout request
+
         let response = await api.post("v1/users/logout/");
-  
+
         if (response.status === 204) {
-          // Clear the token and remove Authorization header
           localStorage.removeItem("token");
           delete api.defaults.headers.common["Authorization"];
           setIsLoggedIn(false);
@@ -46,7 +41,7 @@ const NavBar = () => {
       console.error("Logout error:", error);
     }
   };
-  
+
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -54,6 +49,10 @@ const NavBar = () => {
           <Link className="navbar-brand" to="/home">
             Hand Off
           </Link>
+          {isLoggedIn &&
+          <Link className="navbar-nav" to="/patients/">
+            Patients
+          </Link>}
           <button
             className="navbar-toggler"
             type="button"
@@ -90,14 +89,26 @@ const NavBar = () => {
           <div className="ml-auto">
             {isLoggedIn ? (
               <>
-                <Link to="/home"> Home</Link>
-                <Link to="/patients"> All patients</Link>
-                <button onClick={logOut}>Log out</button>
+                <Button variant="link" className="nav" onClick={logOut}>
+                  Log out
+                </Button>
               </>
             ) : (
               <>
-                <Link to="/"> Register</Link>
-                <Link to="/login"> Log In</Link>
+                <Button
+                  variant="link"
+                  className="nav"
+                  onClick={() => navigate("/register")}
+                >
+                  Register
+                </Button>
+                <Button
+                  variant="link"
+                  className="nav"
+                  onClick={() => navigate("/login")}
+                >
+                  Log In
+                </Button>
               </>
             )}
           </div>
