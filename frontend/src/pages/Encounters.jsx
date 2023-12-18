@@ -5,6 +5,8 @@ import Card from "react-bootstrap/Card";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import SumerizeAssessments from "../components/SumerizeAssessments";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 const Encounters = () => {
   const [loading, setLoading] = useState(true);
@@ -63,7 +65,6 @@ const Encounters = () => {
     }
   };
 
-
   const DeleteThem = async () => {
     const token = localStorage.getItem("token");
 
@@ -78,8 +79,8 @@ const Encounters = () => {
         console.error(err);
       });
     if (response.status === 204) {
-      alert("Encounter deleted")
-      navigate(`/patient/${encounter.patient_id.id}`)
+      alert("Encounter deleted");
+      navigate(`/patient/${pt_id}`);
     }
   };
   useEffect(() => {
@@ -95,49 +96,57 @@ const Encounters = () => {
       {error && <p>Error: {error}</p>}
       {!loading && !error && (
         <>
-          <div>
-            <h2>Encounter</h2>
-            <Card style={{ width: "18rem", margin: "2rem" }}>
-              <Card.Title>
-                Admitted: {encounterDate}@{encounterTime}{" "}
-              </Card.Title>
-              <Card.Img variant="top" src={image} />
-              <Card.Body>
-                Name: {encounter.patient_id.first_name}{" "}
-                {encounter.patient_id.last_name}
-                <br />
-                DOB: {encounter.patient_id.date_of_birth}
-                <br />
-                Pt ID: {encounter.patient_id.id}
-                <br />
-                DX: {encounter.diagnosis}
-              </Card.Body>
-              <Button onClick={() => navigate(`/encounter/${id}/edit`)}>
-                Edit Encounter
-              </Button>
-              <Button onClick={DeleteThem}>
-                Delete Encounter
-              </Button>
-            </Card>
-            <Button
-              variant="primary"
-              onClick={() =>
-                navigate(
-                  `/encounter/${id}/addassessment/${encounter.patient_id.id}`
-                )
-              }
-            >
-              add an assessment
-            </Button>
-            <Button
-              variant="primary"
-              onClick={() => navigate(`/allassessments/${id}`)}
-            >
-              view all assessments for encounter
-            </Button>
-            <h2>Assessment summary</h2>
-          </div>
-          <SumerizeAssessments id={id} />
+          <Row>
+            <Col md={6}>
+              <div>
+                <h2>Encounter</h2>
+                <Card style={{ width: "18rem", margin: "2rem" }}>
+                  <Card.Title>
+                    Admitted: {encounterDate}
+                    {encounterTime}{" "}
+                  </Card.Title>
+                  <Card.Img variant="top" src={image} />
+                  <Card.Body>
+                    Name: {encounter.patient_id.first_name}{" "}
+                    {encounter.patient_id.last_name}
+                    <br />
+                    DOB: {encounter.patient_id.date_of_birth}
+                    <br />
+                    Pt ID: {encounter.patient_id.id}
+                    <br />
+                    DX: {encounter.diagnosis}
+                  </Card.Body>
+                  <Button 
+                  className="btn btn-warning m-2"
+                  onClick={() => navigate(`/encounter/${id}/edit`)}>
+                    Edit Encounter
+                  </Button>
+                  <Button
+                    className="btn btn-success m-2"
+                    onClick={() =>
+                      navigate(
+                        `/encounter/${id}/addassessment/${encounter.patient_id.id}`
+                      )
+                    }
+                  >
+                    Add an assessment
+                  </Button>
+                  <Button
+                    variant="primary"
+                    className="btn btn-secondary m-2"
+                    onClick={() => navigate(`/allassessments/${id}`)}
+                  >
+                    View all assessments
+                  </Button>
+                  <Button onClick={DeleteThem} className="btn btn-danger m-2">Delete Encounter</Button>
+                </Card>
+              </div>
+            </Col>
+            <Col md={3}>
+              {/* <h2>Assessment summary</h2> */}
+              <SumerizeAssessments id={id} />
+            </Col>
+          </Row>
         </>
       )}
     </>

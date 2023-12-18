@@ -41,7 +41,7 @@ const Patients = () => {
       {error && <p>Error: {error}</p>}
       {!loading && !error && (
         <>
-          <Row className="row-cols-1 row-cols-md-2 row-cols-lg-3">
+          <Row className="mb-4 d-flex align-items-center justify-content-center">
             {patients.map((patient) => (
               <Col key={patient.id} className="mb-4">
                 <Cards

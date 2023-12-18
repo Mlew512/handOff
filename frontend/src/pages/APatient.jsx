@@ -12,7 +12,7 @@ import Col from "react-bootstrap/Col";
 const APatient = () => {
   const [patient, setPatient] = useState({});
   const [loading, setLoading] = useState(true);
-  const [encounter, setEncounter] = useState({});
+  const [encounter, setEncounter] = useState([]);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const [lastAssessment, setLastAssessment] = useState(0);
@@ -83,12 +83,15 @@ const APatient = () => {
                 allergies={patient.allergies}
               />
             </Col>
-            <Col md={6}>
+            <Col md={3}>
               <div className="d-flex flex-column">
                 <div className="mt-3">
-                  <h2>Last Assessments</h2>
                   <LastAssessments id={id} />
                 </div>
+              </div>
+            </Col>
+            <Col md={3}>
+              <div className="d-flex flex-column">
                 <div className="mt-3">
                   <h2>Most Recent Encounter</h2>
                   {encounter[lastAssessment] ? (

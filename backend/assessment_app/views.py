@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from .models import Assessment
-from .serializers import AllAssessmentSerializer, AnAssessmentSerializer
+from .serializers import AllAssessmentSerializer, AnAssessmentSerializer, GptAssessmentSerializer
 from .models import Assessment
 from django.shortcuts import render, get_object_or_404
 from rest_framework.views import APIView
@@ -87,3 +87,11 @@ class An_Assessment_Id(APIView):
         assessments = Assessment.objects.filter(encounter_id = encounter_id)
         serassessment = AnAssessmentSerializer(assessments)
         return Response(serassessment)
+    
+class Gpt_Assessment_Id(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, encounter_id):
+        assessments = Assessment.objects.filter(encounter_id=encounter_id)
+        serassessment = GptAssessmentSerializer(assessments, many=True)
+        return Response(serassessment.data)

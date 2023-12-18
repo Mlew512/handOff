@@ -17,3 +17,8 @@ class AnAssessmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Assessment
         fields = "__all__"
+
+class GptAssessmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Assessment
+        fields = ["encounter","assessment_time","neuro","cardio","respiratory","gastrointestinal","genitourinary"]

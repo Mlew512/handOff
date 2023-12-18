@@ -51,164 +51,61 @@ class Gptai_Api(APIView):
                     {
                         "role": "system",
                         "content": """
-                        you are a nurse, fluent in medical terminology and identifying trends in a patient's status and recommending care plans for nurses, you create summaries of data for assisting nurses give patient turnover reports. here is an example of a prompt and a response DO NOT SEND THIS BACK AS A RESPONSE, CHANGE THE RESPONSE BASED ON THE ASSESSMENT DATA I SEND YOU.
+                        you are a nurse, fluent in medical terminology and identifying trends in a patient's status and recommending care plans for nurses, you create summaries of data for assisting nurses give patient turnover reports. here is an example of a sucessfull prompt and response. use it to model your response but interpret the information from the prompt for the trends in the summary. 
+
                         ###Example###
-                        prompt: {
-                            encounter_diagnosis:"subdural hematoma"
-                            0:{
-                                "encounter": 1, 
-                                "patient": 1,
-                                "provider": 1,    
-                                "assessment_time": "2023-12-06T12:45:00",
-                                "neuro": "alert and oriented x4, pearrla, pupils 3mm, moves all extremities, sensation intact, speech clear",
-                                "cardio": "heart sounds s1s2 audible, cappilary refill < 3 seconds, pulses +2 all extremities, tachycardic, normotensive",
-                                "respiratory": "lungs clear to auscultation, left lower lobe crackles",
-                                "gastrointestinal": "Bowel sounds active x4 quadrants, 1 bowelmovement at 1130, diet NPO",
-                                "genitourinary": "foley catheter, urine output dark yellow at 30ml/hr"
-                            },
-                            1:{
-                                "encounter": 1,
-                                "patient": 1,
-                                "provider": 1,
-                                "assessment_time": "2023-12-06T13:30:00",
-                                "neuro": "alert and oriented x2, pearrla, pupils 3mm, moves all extremities, sensation intact, speech muffled",
-                                "cardio": "heart sounds s1s2 audible, cappilary refill < 3 seconds, pulses +2 all extremities, tachycardic, normotensive",
-                                "respiratory": "lungs clear to auscultation, left lower lobe crackles",
-                                "gastrointestinal": "Bowel sounds active x4 quadrants, diet NPO",
-                                "genitourinary": "foley catheter, urine output dark yellow at 50ml/hr"
-                            }
-                            2:{
-                                "encounter": 1,
-                                "patient": 1,
-                                "provider": 1,
-                                "assessment_time": "2023-12-06T15:30:00",
-                                "neuro": "alert and oriented x4, pearrla, pupils 3mm, moves all extremities, sensation intact, speech clear",
-                                "cardio": "heart sounds s1s2 audible, cappilary refill < 3 seconds, pulses +2 all extremities, tachycardic, normotensive",
-                                "respiratory": "lungs clear to auscultation, left lower lobe crackles",
-                                "gastrointestinal": "Bowel sounds active x4 quadrants, diet NPO",
-                                "genitourinary": "foley catheter, urine output dark yellow at 50ml/hr"
-                            }
-                        }
-                        sample good response:
-                            "neuro": {
-                                "summary": "patient's mental alertness changed from alert and oriented x4-2 at 1330 but returned to a&0x4 at the 1530 assessment",
-                                "data": {
-                                    "cognition": "alert to person and place but not situation and time during the 1530 assessment",
-                                    "cranial nerves": "intact",
-                                    "motor function": "patient moves all extremities at every assessement",
-                                    "sensation": "remained intact during the shift",
-                                    "reflexes": "cough & gag reflex pressent"
-                                }               
+                        {
+                            "neuro":{
+                                "summary": "summarize the neuro assessment data from the prompt passed below in a couple sentences, if there are any changes in mental status you should say here",
+                                "trends": "identify trends of the patients nuero status here from all the assessments passes",
+                                "major_events": "summarize any major nuero events though out the shift here",               
                             },
                             "cardiac": {
-                                "summary": "patient remained normotensive, with heart rate within normal range during the last 3 assessments",
-                                "data": {
-                                    "heart rate": "remained between 80-100bpm through the shift",
-                                    "blood pressure": "between 120-140/80-85mmhg",
-                                    "heart rhythm": "normal sinus", 
-                                    "edema": "no edema present"
-                                }
+                                "summary": "summarize the cardiac assessments data from the prompt passed below in a couple sentences",
+                                "trends": "identify trends of the patients cardiac status based off of the assessment data given",
+                                "major_events": "summarize any major cardiac events from the assessments passed",   
                             },
                             "respiratory": {
-                                "summary": "patients respiratory status remained stable though the shift, patient is on 3lpm of oxygen though a nasal canula, breathing is unlabored and patient has maintained oxygen saturations above 92% the entire shift",
-                                "data": {
-                                    "respiratory rate": "between 12-20bpm",
-                                    "oxygen saturation": "92-100%",
-                                    "lung sounds": "clear to auscultation in all lobes",
-                                    "cough": "none present"
-                                }
+                                "summary": "summarize the respiratory assessment data from the prompt passed below in a couple sentences",
+                                "trends": "identify trends of the patients respiratory status here from all the assessments given",
+                                "major_events": "summarize any major respiratory events though out the shift here",   
                             },
                             "GI": {
-                                "summary": "Throughout the shift, bowel function remained normal",
-                                "data": {
-                                    "bowel sounds": "bowel sounds remained present throughout the shift",
-                                    "appetite": "normal apetite through out the shift",
-                                    "abdominal pain": "No abdominal pain reported throughout the shift",
-                                    "bowel movements": "prior to admission"
-                                }
+                                "summary": "summarize the GI assessment data from the prompt passed below in a couple sentences",
+                                "trends": "identify trends of the patients gi status here from all the assessments passed",
+                                "major_events": "summarize any major GI events though out the shift here",   
                             },
                             "GU": {
-                                "summary": "patient maintained adequate urine output throughout the shift with a foley catheter, urine remained dark yellow",
-                                "data": {
-                                    "urine output": "between 30-50ml/hr",
-                                    "voiding without difficulty": true,
-                                    "no urinary retention": true,
-                                    "no urinary incontinence": "unable to assess"
-                                },
+                                "summary": "summarize the GU assessment data from the prompt passed below in a couple sentences",
+                                "trends": "identify trends of the patients GU status here from all the assessments passed",
+                                "major_events": "summarize any major GU events though out the shift here",   
                             },
-                            "careplan Recommendation": "ensure neuro assessments are completed at scheduled intervals and maintain a quiet dark environment during the night and a bright environment during the day to promote adequate rest and to prevent ICU delirium"
+                            "careplan": {
+                                "summary":"create one nursing careplan recommendation taking into consideration the patient's assessment data and the diagnosis from the encounter data, response should be less than 3 sentences",
+                                "rational":"using data from the assessments back up why you are recommending this careplan with subjective and objective data",
+                            },
+                        }
                         }
                         """,
                     },
                     {
                         "role": "user",
+                        "content": """{prompt}
+                        """,
+                    },
+                    {
+                        "role": "assistant",
                         "content": """
-                        ###instruction###
-                        you are here to assist medical professionals in patient handoff. 
-                        summarize the given data following the example format provided.
-                        DO NOT preface the response with "here is a summary of" or "from the data provided."
-                        DO NOT just respond with the example given in the system message
-
-                        ###Example###
-                        here is the format that the response has to be:
-                        {
-                            "neuro":{
-                                "summary": (summarize the neuro assessment data from the prompt passed below in a couple sentences),
-                                "data": {
-                                    "cognition": (summarize the information from the prompt),
-                                    "cranial nerves": (summarize the information from the prompt),
-                                    "motor function": (summarize the information from the prompt),
-                                    "sensation": (summarize the information from the prompt),
-                                    "reflexes": (summarize the information from the prompt)
-                                }               
-                            },
-                            "cardiac": {
-                                "summary": (summarize the cardiac assessments data from the prompt passed below in a couple sentences),
-                                "data": {
-                                    "heart rate": (summarize the information from the prompt),
-                                    "blood pressure": (summarize the information from the prompt),
-                                    "heart rhythm": (summarize the information from the prompt),
-                                    "edema": (summarize the information from the prompt)
-                                }
-                            },
-                            "respiratory": {
-                                "summary": (summarize the respiratory assessment data from the prompt passed below in a couple sentences)"
-                                "data": {
-                                    "respiratory rate": (summarize the information from the prompt),
-                                    "oxygen saturation": (summarize the information from the prompt),
-                                    "lung sounds": (summarize the information from the prompt),
-                                    "cough": (summarize the information from the prompt)
-                                }
-                            },
-                            "GI": {
-                                "summary": (summarize the GI assessment data from the prompt passed below in a couple sentences),
-                                "data": {
-                                    "bowel sounds": (summarize the information from the prompt),
-                                    "appetite": (summarize the information from the prompt),
-                                    "abdominal pain": (summarize the information from the prompt),
-                                    "bowel movements": (summarize the information from the prompt)
-                                }
-                            },
-                            "GU": {
-                                "summary": (summarize the GU assessment data from the prompt passed below in a couple sentences),
-                                "data": {
-                                    "urine output": (summarize the information from the prompt),
-                                    "voiding without difficulty": (summarize the information from the prompt),
-                                    "no urinary retention": (summarize the information from the prompt),
-                                    "no urinary incontinence": (summarize the information from the prompt)
-                                },
-                            },
-                            "careplan": (create one nursing careplan recommendation taking into consideration the patient's assessment data and the diagnosis from the encounter data, response should be less than 2 sentences)
-                        }
-                        }
-                        use this data to complete the request: {prompt}
+                        ###assistant_instruction###
+                        identify the trends for each body system in the summarize section and provide a concise summary about all the assessments provided. the summary should include any pertanant fluxuations in the patients status and any major events. response Must be in JSON format. 
+                        ...
                         """,
                     },
                 ],
             )
-
+            print(prompt)
             response_content = completion.choices[0].message.content
-            print("Response Content:", response_content)
+            print(response_content)
             response_dict = json.loads(response_content)
 
             return Response({"response_content": response_dict})

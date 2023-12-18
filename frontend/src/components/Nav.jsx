@@ -16,6 +16,7 @@ const NavBar = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
+    // search based on last name
     console.log(`Searching for: ${searchValue}`);
   };
 
@@ -50,7 +51,7 @@ const NavBar = () => {
             Hand Off
           </Link>
           {isLoggedIn &&
-          <Link className="navbar-nav" to="/patients/">
+          <Link id="patientnav" className="navbar-nav" to="/patients/">
             Patients
           </Link>}
           <button
@@ -73,7 +74,7 @@ const NavBar = () => {
                 <input
                   className="form-control"
                   type="search"
-                  placeholder="Search"
+                  placeholder="Patient Search"
                   aria-label="Search"
                   value={searchValue}
                   onChange={(e) => setSearchValue(e.target.value)}

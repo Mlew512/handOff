@@ -1,31 +1,27 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "../utilities";
 import Card from "react-bootstrap/Card";
-import { useNavigate } from "react-router-dom";
-import Button from "react-bootstrap/esm/Button";
+import Button from "react-bootstrap/Button";
 
-// getting all assessments by encounter ID
 const SumerizeAssessments = () => {
   const [loading, setLoading] = useState(true);
-  const [summarized, setSummarized] = useState("");
-  const [assessments, setAssessments] = useState({});
+  const [summarized, setSummarized] = useState({});
   const [error, setError] = useState(null);
   const { id } = useParams();
 
   const getAssessments = async () => {
     const token = localStorage.getItem("token");
-
     const headers = {
       Authorization: `token ${token}`,
     };
-    // console.log(headers)
+
     try {
       setLoading(true);
-      const response = await api.get(`v1/assessments/encounter/${id}/`, {
+      const response = await api.get(`v1/assessments/gpt/${id}/`, {
         headers,
       });
-      setAssessments(response.data);
+      setSummarized(response.data);
     } catch (error) {
       setError("No assessments yet!");
     } finally {
@@ -35,7 +31,7 @@ const SumerizeAssessments = () => {
 
   useEffect(() => {
     getAssessments();
-  }, []);
+  }, [id]);
 
   const getSummary = async () => {
     const token = localStorage.getItem("token");
@@ -47,7 +43,7 @@ const SumerizeAssessments = () => {
       setLoading(true);
       const response = await api.post(
         `v1/summary/`,
-        {prompt:{assessments}},
+        { prompt: summarized },
         { headers }
       );
       setSummarized(response.data.response_content);
@@ -64,38 +60,28 @@ const SumerizeAssessments = () => {
 
   return (
     <>
-        <br/>
-      {loading && <p>Generating Assessment Summary....</p>}
+      <br />
+      <Card style={{ width: "50rem" }}>
+        <Card.Title>Assessment Summary</Card.Title>
+        <Card.Body>
+          {loading && <Button disabled>Generating</Button>}
+          {!loading && (
+            <Button onClick={handleGenerateSummary}>Generate</Button>
+          )}
+          {Object.keys(summarized).length > 3 ? (
+            Object.keys(summarized).map((key) => (
+              <React.Fragment key={key}>
+                <h3>{key.charAt(0).toUpperCase() + key.slice(1)}</h3>
+                {summarized[key] && summarized[key].summary}
+                <br />
+              </React.Fragment>
+            ))
+          ) : (
+            <p>Summarize assessment data from the last 12 hours.</p>
+          )}
+        </Card.Body>
+      </Card>
       {error && <p>Error: {error}</p>}
-      {!loading && !error && (
-        <>
-          <div>
-          <Button onClick={handleGenerateSummary}>Generate Summary</Button>
-            <Card style={{ width: "50rem" }}>
-              <Card.Title>Assessment Summary</Card.Title>
-              <Card.Body>
-                <h3>Neuro</h3>
-                {summarized && summarized.neuro && summarized.neuro.summary}
-                <br />
-                <h3>Cardiac:</h3>
-                {summarized && summarized.cardiac && summarized.cardiac.summary}
-                <br />
-                <h3>Respiratory:</h3>
-                {summarized && summarized.respiratory && summarized.respiratory.summary}
-                <br />
-                <h3>GI:</h3>
-                {summarized && summarized.GI && summarized.GI.summary}
-                <br />
-                <h3>GU:</h3>
-                {summarized && summarized.GU && summarized.GU.summary}
-                <br />
-                <h3>Careplan Recommendation:</h3>
-                {summarized && summarized.careplan && summarized.careplan}
-              </Card.Body>
-            </Card>
-          </div>
-        </>
-      )}
     </>
   );
 };

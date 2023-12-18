@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 function Cards({ firstName, lastName, id, age, pmh, allergies }) {
   const navigate = useNavigate();
@@ -20,24 +21,20 @@ function Cards({ firstName, lastName, id, age, pmh, allergies }) {
   }, [age]);
 
   return (
-    <Card style={{ width: "18rem" }}>
+    <Card style={{ width: "18rem", margin: "2rem"}}>
       <Card.Body>
         <Card.Title>
-          {firstName} {lastName}
+        <Link to={`../patient/${id}/`}>{firstName} {lastName}</Link>
         </Card.Title>
         <Card.Text>
           id: {id}
           <br />
-          age: {ageInYears}
+          Age: {ageInYears}
           <br />
-          allergies: {allergies}
+          Allergies: {allergies}
           <br />
           Past Medical history: {pmh}
         </Card.Text>
-        <Button variant="primary" onClick={() => navigate(`/patient/${id}/`)}>
-          Go to patient
-        </Button>
-        <br />
       </Card.Body>
     </Card>
   );

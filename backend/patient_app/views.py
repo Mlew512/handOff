@@ -45,8 +45,8 @@ class A_patient(APIView):
             serializer= AllPatientsSerializer(patient)
             return Response(serializer.data)
         elif last_name is not None:
-            patient = get_object_or_404(Patient, last_name=last_name)
-            serializer= AllPatientsSerializer(patient)
+            patients = Patient.objects.filter(last_name=last_name)
+            serializer = AllPatientsSerializer(patients, many=True)
             return Response(serializer.data)
         else:
             return Response("No client matching credentials", status=HTTP_404_NOT_FOUND)
