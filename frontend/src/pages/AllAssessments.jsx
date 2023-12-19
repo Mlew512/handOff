@@ -23,7 +23,7 @@ const AllAssessments = () => {
         const response = await api.get(`v1/assessments/encounter/${id}/`, {
           headers,
         });
-        console.log(response.data)
+        // console.log(response.data)
         setAssessments(response.data);
   
   

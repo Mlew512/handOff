@@ -15,6 +15,7 @@ import AddEncounter from "./pages/AddEncounter";
 import EditEncounter from "./pages/EditEncounter";
 import AddPatient from "./pages/AddPatient";
 import EditPatient from "./pages/EditPatient";
+import SearchResults from "./pages/SearchPage";
 
 const router = createBrowserRouter([
   {
@@ -23,15 +24,15 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Register />,
+        element: <Home />,
       },
       {
         path: "login/",
         element: <Login />,
       },
       {
-        path: "home/",
-        element: <Home />,
+        path: "register/",
+        element: <Register />,
       },
       {
         path: "patient/:id/",
@@ -80,6 +81,10 @@ const router = createBrowserRouter([
       {
         path: "patients/add/",
         element: <AddPatient />,
+      },
+      {
+        path: "search/:searchValue",
+        element: <SearchResults />,
       },
     ],
     errorElement: <NotFoundPage />,

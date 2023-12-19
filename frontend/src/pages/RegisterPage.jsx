@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { api } from "../utilities";
 import { useNavigate } from "react-router-dom";
+import { Card, Form, Button, Container } from "react-bootstrap";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -16,55 +17,52 @@ const Register = () => {
     });
     let user = response.data.user;
     let token = response.data.token;
-    // Store the token securely (e.g., in localStorage or HttpOnly cookies)
     localStorage.setItem("token", token);
     localStorage.setItem('user', user)
     api.defaults.headers.common["Authorization"] = `Token ${token}`;
-    // set the user using with useContext to allow all other pages that need user information
-    // setUser(user);
-    navigate("/home");
+    navigate("/");
   };
 
   return (
-    <>
-      <h1>Register</h1>
-      <form onSubmit={signUp}>
-        <div>
-        <label htmlFor="inputEmail" className="form-label">
-            Email
-          </label>
-          <input
-            type="email"
-            id="inputEmail"
-            className="form-control"
-            aria-describedby="passwordHelpBlock"
-            placeholder="Email"
-            value={username}
-            onChange={(e) => setUser(e.target.value)}
-          />
-          <div id="usernameHelpBlock" className="form-text">
-            Email must be a valid address example: johnsmith@mail.com
-          </div>
-          <label htmlFor="inputPassword5" className="form-label">
-            Password
-          </label>
-          <input
-            type="password"
-            id="inputPassword5"
-            className="form-control"
-            aria-describedby="passwordHelpBlock"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <div id="passwordHelpBlock" className="form-text">
-            Your password must be 8-20 characters long, contain letters and
-            numbers, and must not contain spaces, special characters, or emoji.
-          </div>
-        </div>
-        <button type="submit">Sign up</button>
-      </form>
-    </>
+    <Container className="d-flex justify-content-center align-items-center vh-100">
+      <Card style={{ width: "20rem" }}>
+        <Card.Body>
+          <h1 className="mb-4">Register</h1>
+          <Form onSubmit={signUp}>
+            <Form.Group className="mb-3">
+              <Form.Label htmlFor="inputEmail">Email</Form.Label>
+              <Form.Control
+                type="email"
+                id="inputEmail"
+                placeholder="Email"
+                value={username}
+                onChange={(e) => setUser(e.target.value)}
+              />
+              <Form.Text id="usernameHelpBlock" className="text-muted">
+                Email must be a valid address, for example: johnsmith@mail.com
+              </Form.Text>
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label htmlFor="inputPassword5">Password</Form.Label>
+              <Form.Control
+                type="password"
+                id="inputPassword5"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <Form.Text id="passwordHelpBlock" className="text-muted">
+                Your password must be 8-20 characters long, contain letters and
+                numbers, and must not contain spaces, special characters, or emoji.
+              </Form.Text>
+            </Form.Group>
+            <Button type="submit" variant="primary" className="w-100">
+              Sign up
+            </Button>
+          </Form>
+        </Card.Body>
+      </Card>
+    </Container>
   );
 };
 

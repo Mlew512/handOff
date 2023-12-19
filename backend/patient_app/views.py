@@ -11,9 +11,9 @@ from .models import Patient
 from .serializers import AllPatientsSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
+from django.db.models import Q
 
-# Create your views here.\
-# ---get all patients----
+
 class All_patients(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -45,7 +45,7 @@ class A_patient(APIView):
             serializer= AllPatientsSerializer(patient)
             return Response(serializer.data)
         elif last_name is not None:
-            patients = Patient.objects.filter(last_name=last_name)
+            patients = Patient.objects.filter(Q(first_name__istartswith=last_name) | Q(last_name__istartswith=last_name))
             serializer = AllPatientsSerializer(patients, many=True)
             return Response(serializer.data)
         else:

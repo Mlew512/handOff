@@ -1,15 +1,21 @@
-/* eslint-disable react/prop-types */
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { format } from "date-fns";
+
+function calculateAge(dob) {
+  const currentDate = new Date();
+  const dateOfBirth = new Date(dob);
+  const ageDifference = currentDate - dateOfBirth;
+  return Math.floor(ageDifference / (365.25 * 24 * 60 * 60 * 1000));
+}
 
 function AssessCard({
   firstName,
   id,
   lastName,
   time,
-  dob,
   provider,
   pFirstName,
   pLastName,
@@ -21,60 +27,66 @@ function AssessCard({
   gu,
 }) {
   const navigate = useNavigate();
-  const [ageInYears, setAgeInYears] = useState();
-
-  function calculateAge() {
-    const currentDate = new Date();
-    const dob = new Date(age);
-    const ageDifference = currentDate - dob;
-    setAgeInYears(Math.floor(ageDifference / (365.25 * 24 * 60 * 60 * 1000)));
-    // console.log(`The age is: ${ageInYears} years`);
-  }
+  const [ageInYears, setAgeInYears] = useState(calculateAge(age));
+  const formattedDate = format(new Date(time), "MM-dd-yyyy");
+  const formattedTime = format(new Date(time), "HH:mm:ss");
 
   useEffect(() => {
-    calculateAge();
+    setAgeInYears(calculateAge(age));
   }, [age]);
 
   return (
-    <Card style={{ width: "80rem", margin: "1rem" }}>
-      {/* <Card.Img variant="top" src={image} /> */}
+    <Card style={{ margin: "1rem" }}>
       <Card.Body>
-        <Card.Title>
-          {firstName} {lastName}
-        </Card.Title>
+        <div className="row">
+          <div className="col-md-4">
+            <Card.Title>
+              <Link to={`../patient/${id}/`}>
+                {firstName} {lastName}
+              </Link>
+              <h3>Age:</h3>
+              {ageInYears}
+            </Card.Title>
+          </div>
+          <div className="col-md-4">
+            <h3>Date:</h3>
+            {formattedDate}
+            <br />
+            <h3>Time:</h3>
+            {formattedTime}
+          </div>
+          <div className="col-md-4">
+            <h3>Provider:</h3>
+            {provider} {pFirstName} {pLastName}
+            <br />
+          </div>
+        </div>
         <Card.Text>
-          <h3>date:</h3>
-          {time}
-          <h3>Time:</h3>
-          <h3>provider:</h3>
-          {provider} {pFirstName} {pLastName}
           <br />
-          <h3>patient:</h3>
-          {firstName} {lastName}
-          <br />
-          <h3>age:</h3>
-          {ageInYears}
-          <br />
-          <h3>neuro:</h3>
+          <h3>Neuro:</h3>
           {neuro}
           <br />
-          <h3>cardio:</h3>
+          <h3>Cardio:</h3>
           {cardio}
           <br />
-          <h3>respiratory:</h3>
+          <h3>Respiratory:</h3>
           {respiratory}
           <br />
-          <h3>GI:</h3>
+          <h3>Gastrointestinal:</h3>
           {gi}
           <br />
           <h3>GU:</h3>
           {gu}
         </Card.Text>
-        <Button variant="primary" onClick={() => navigate(`/assessments/${id}/`)}>
-          Go to Assessment
+        <Button
+          variant="primary"
+          onClick={() => navigate(`/assessments/${id}`)}
+        >
+          Go to assessment
         </Button>
       </Card.Body>
     </Card>
   );
 }
+
 export default AssessCard;

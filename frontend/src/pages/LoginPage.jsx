@@ -1,11 +1,14 @@
 import { api } from "../utilities";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Card, Form, Button, Container, Row, Col } from "react-bootstrap";
+
 
 const Login = () => {
     const navigate = useNavigate();
     const [username, setUser] = useState("");
     const [password, setPassword] = useState("");
+
     const logIn = async (e) => {
     e.preventDefault();
     let response = await api.post("v1/users/login/", {
@@ -20,47 +23,43 @@ const Login = () => {
     localStorage.setItem('user_id', user_id);
     api.defaults.headers.common["Authorization"] = `Token ${token}`;
     setUser(user);
-    navigate("/home");
+    navigate("/");
     };
 
-return (
-    <>
-      <h1>Log In</h1>
-      <form onSubmit={logIn}>
-        <div>
-        <label htmlFor="inputEmail" className="form-label">
-            Email
-          </label>
-          <input
-            type="email"
-            id="inputEmail"
-            className="form-control"
-            aria-describedby="EmailHelpBlock"
-            placeholder="Email"
-            value={username}
-            onChange={(e) => setUser(e.target.value)}
-          />
-          <div id="usernameHelpBlock" className="form-text">
-          </div>
-          <label htmlFor="inputPassword5" className="form-label">
-            Password
-          </label>
-          <input
-            type="password"
-            id="inputPassword5"
-            className="form-control"
-            placeholder="PassWord"
-            aria-describedby="passwordHelpBlock"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <div id="passwordHelpBlock" className="form-text">
-          </div>
-        </div>
-        <button type="submit">Login</button>
-      </form>
-    </>
-  );
-};
-
-export default Login;
+    return (
+      <Container className="d-flex justify-content-center align-items-center vh-100">
+        <Card style={{ width: "20rem" }}>
+          <Card.Body>
+            <h1 className="mb-4">Log In</h1>
+            <Form onSubmit={logIn}>
+              <Form.Group className="mb-3">
+                <Form.Label htmlFor="inputEmail">Email</Form.Label>
+                <Form.Control
+                  type="email"
+                  id="inputEmail"
+                  placeholder="Email"
+                  value={username}
+                  onChange={(e) => setUser(e.target.value)}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label htmlFor="inputPassword5">Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  id="inputPassword5"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </Form.Group>
+              <Button type="submit" variant="primary" className="w-100">
+                Login
+              </Button>
+            </Form>
+          </Card.Body>
+        </Card>
+      </Container>
+    );
+  };
+  
+  export default Login;

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Row from "react-bootstrap/Row";
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 import { api } from "../utilities";
 import { useNavigate } from "react-router-dom";
-import Button from "react-bootstrap/esm/Button";
 
 const EditPatient = () => {
   const { id } = useParams();
@@ -11,16 +12,14 @@ const EditPatient = () => {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  // Define state for each input
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
   const [dateOfBirth, setDateOfBirth] = useState();
   const [allergies, setAllergies] = useState();
   const [pmh, setPmh] = useState();
   const [medicalId, setMedicalId] = useState();
-
   const [patient, setPatient] = useState({});
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
   useEffect(() => {
     const getPatient = async () => {
@@ -86,70 +85,126 @@ const EditPatient = () => {
         console.error(err);
       });
     if (response.status === 204) {
-      alert("patient deleted")
-      navigate(`/patients/`)
+      alert("patient deleted");
+      navigate(`/patients/`);
     }
+  };
+  const showDeleteConfirmationDialog = () => {
+    setShowDeleteConfirmation(true);
   };
 
   return (
-    <>
-      {loading && <p>Loading...</p>}
-      {error && <p>Error: {error}</p>}
-      {!loading && !error && (
-        <>
-          <Row style={{ padding: "0 10vmin" }}>
-            <form onSubmit={(e) => modifyPatient(e)}>
-              <h2>Edit Patient</h2>
-              First Name:
+    <Row className="justify-content-center">
+      <Card style={{ width: "30rem", margin: "20px" }}>
+        <Card.Body>
+          <Card.Title>Edit Patient</Card.Title>
+          <form onSubmit={(e) => modifyPatient(e)}>
+            <div className="mb-3">
+              <label htmlFor="firstName" className="form-label">
+                First Name:
+              </label>
               <input
                 type="text"
+                id="firstName"
+                className="form-control"
                 placeholder={patient.first_name}
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
               />
-              Last Name:
+            </div>
+            <div className="mb-3">
+              <label htmlFor="lastName" className="form-label">
+                Last Name:
+              </label>
               <input
                 type="text"
+                id="lastName"
+                className="form-control"
                 placeholder={patient.last_name}
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
               />
-              Date of Birth:
+            </div>
+            <div className="mb-3">
+              <label htmlFor="dateOfBirth" className="form-label">
+                Date of Birth:
+              </label>
               <input
                 type="date"
+                id="dateOfBirth"
+                className="form-control"
                 placeholder={patient.date_of_birth}
                 value={dateOfBirth}
                 onChange={(e) => setDateOfBirth(e.target.value)}
               />
-              Allergies:
+            </div>
+            <div className="mb-3">
+              <label htmlFor="allergies" className="form-label">
+                Allergies:
+              </label>
               <input
                 type="text"
+                id="allergies"
+                className="form-control"
                 placeholder={patient.allergies}
                 value={allergies}
                 onChange={(e) => setAllergies(e.target.value)}
               />
-              Past Medical History:
+            </div>
+            <div className="mb-3">
+              <label htmlFor="pmh" className="form-label">
+                Past Medical History:
+              </label>
               <input
                 type="text"
+                id="pmh"
+                className="form-control"
                 placeholder={patient.past_medical_history}
                 value={pmh}
                 onChange={(e) => setPmh(e.target.value)}
               />
-              Medical Id:
+            </div>
+            <div className="mb-3">
+              <label htmlFor="medicalId" className="form-label">
+                Medical Id:
+              </label>
               <input
-                type="text" // Assuming medicalId is a string
+                type="text"
+                id="medicalId"
+                className="form-control"
                 placeholder={patient.medical_id}
                 value={medicalId}
                 onChange={(e) => setMedicalId(e.target.value)}
               />
-              <Button type="submit" >Save</Button>
-            </form>
-          </Row>
-            <h2>Delete patient</h2>
-            <Button class="danger" onClick={DeleteThem} >Delete Patient</Button>
-        </>
-      )}
-    </>
+            </div>
+            <Button className="btn btn-success m-2" type="submit">Save changes</Button>
+            <br/>
+            <Button className="btn btn-secondary m-2" onClick={(e)=>navigate(`/patient/${id}/`)}>Cancel</Button>
+            
+            
+
+          </form>
+        </Card.Body>
+      </Card>
+      <Card style={{ width: "18rem", margin: "20px" }}>
+        <Card.Body>
+          <Card.Title>Delete patient</Card.Title>
+          {!showDeleteConfirmation && (
+            <Button className="btn-danger m-2" onClick={showDeleteConfirmationDialog}>
+             Delete patient
+            </Button>
+          )}
+          {showDeleteConfirmation && (
+            <div>
+              <p>Are you sure you want to delete this patient?</p>
+              <Button className="btn btn-danger m-2" onClick={DeleteThem}>
+                Delete Patient
+              </Button>
+            </div>
+          )}
+        </Card.Body>
+      </Card>
+    </Row>
   );
 };
 

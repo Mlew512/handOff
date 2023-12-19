@@ -5,11 +5,11 @@ const Home = () => {
   return (
     <div className="container mt-5">
       <header className="text-center">
-        <h1>Welcome to Hand Off</h1>
+        <h1>Hand Off</h1>
       </header>
       <section className="mt-4">
         <p>
-          "HandOff" is a nurse hand-off app designed to streamline and improve
+          Nurse centric and designed Hand-off app curated to streamline and improve
           the patient hand-off process. The primary goal of this app is to pull
           relevant patient information and present it in an easy-to-read and
           organized format for a smooth transition between nursing shifts.
@@ -35,7 +35,7 @@ const Home = () => {
       <section className="mt-4">
         <h2>HandOff App Mission:</h2>
         <p>
-          THandOff aims to enhance patient care by ensuring a
+          HandOff aims to enhance patient care by ensuring a
           smooth transition of information between nursing shifts, ultimately
           improving the overall efficiency and effectiveness of healthcare
           delivery.
@@ -46,7 +46,7 @@ const Home = () => {
         <ul>
           <li>Expanding data interpretation to include labs, medications, and intake and output data</li>
           <li>An improved assessment documentation interface</li>
-          <li>More advanced and detailed Ai responses. </li>
+          <li>More advanced and detailed Ai responses with the latest Ai models. </li>
           <li>Role based access</li>
         </ul>
       </section>

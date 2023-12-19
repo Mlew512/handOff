@@ -13,7 +13,6 @@ function Cards({ firstName, lastName, id, age, pmh, allergies }) {
     const dob = new Date(age);
     const ageDifference = currentDate - dob;
     setAgeInYears(Math.floor(ageDifference / (365.25 * 24 * 60 * 60 * 1000)));
-    
   }
 
   useEffect(() => {

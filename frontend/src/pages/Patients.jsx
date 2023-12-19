@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { api } from "../utilities";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/esm/Button";
 import Cards from "../components/Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+
 
 const Patients = () => {
   const [patients, setPatients] = useState([]);
@@ -14,17 +15,23 @@ const Patients = () => {
 
   useEffect(() => {
     const getPatients = async () => {
-      const token = localStorage.getItem("token");
-
-      const headers = {
-        Authorization: `token ${token}`,
-      };
-
       try {
         setLoading(true);
+
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("Authentication token not found.");
+        }
+
+        const headers = {
+          Authorization: `token ${token}`,
+        };
+
         const response = await api.get(`v1/patients`, { headers });
-        setPatients(response.data);
+        const sortedPatients = response.data.sort((a, b) => a.last_name.localeCompare(b.last_name));
+        setPatients(sortedPatients);
       } catch (error) {
+        console.error("Error fetching patients:", error);
         setError(error.message);
       } finally {
         setLoading(false);
@@ -36,22 +43,21 @@ const Patients = () => {
 
   return (
     <>
-      <Button onClick={() => navigate(`/patients/add`)}>Add a Patient</Button>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
       {!loading && !error && (
         <>
-          <Row className="mb-4 d-flex align-items-center justify-content-center">
+          <Row xs={1} md={2} lg={3} xl= {4} xxl={5} className="g-4">
             {patients.map((patient) => (
-              <Col key={patient.id} className="mb-4">
+              <Col key={patient.id}>
                 <Cards
-                id={patient.id}
-                firstName={patient.first_name}
-                lastName={patient.last_name}
-                age={patient.date_of_birth}
-                pmh={patient.past_medical_history}
-                allergies={patient.allergies}
-              />
+                  id={patient.id}
+                  firstName={patient.first_name}
+                  lastName={patient.last_name}
+                  age={patient.date_of_birth}
+                  pmh={patient.past_medical_history}
+                  allergies={patient.allergies}
+                />
               </Col>
             ))}
           </Row>

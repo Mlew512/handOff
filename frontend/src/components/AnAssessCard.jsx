@@ -4,13 +4,14 @@ import Card from "react-bootstrap/Card";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { api } from "../utilities";
+import { Link } from "react-router-dom";
+import { format } from "date-fns";
 
 function AnAssessCard({
   firstName,
   id,
   lastName,
   time,
-  dob,
   provider,
   pFirstName,
   pLastName,
@@ -24,15 +25,15 @@ function AnAssessCard({
 }) {
   const navigate = useNavigate();
   const [ageInYears, setAgeInYears] = useState();
-  const [assessId, setAssesId] = useState(id);
-
+  const [assessId] = useState(id);
+  const formattedDate = format(new Date(time), "MM-dd-yyyy");
+  const formattedTime = format(new Date(time), "HH:mm:ss");
 
   function calculateAge() {
     const currentDate = new Date();
     const dob = new Date(age);
     const ageDifference = currentDate - dob;
     setAgeInYears(Math.floor(ageDifference / (365.25 * 24 * 60 * 60 * 1000)));
-    // console.log(`The age is: ${ageInYears} years`);
   }
 
   const DeleteThem = async () => {
@@ -49,8 +50,8 @@ function AnAssessCard({
         console.error(err);
       });
     if (response.status === 204) {
-      alert("assessment deleted")
-      navigate(`/patient/${pt_id}`)
+      alert("assessment deleted");
+      navigate(`/patient/${pt_id}`);
     }
   };
   useEffect(() => {
@@ -58,26 +59,41 @@ function AnAssessCard({
   }, [age]);
 
   return (
-    <Card style={{ width: "80rem", margin: "1rem" }}>
+    <Card style={{ margin: "1rem" }}>
       <Card.Body>
-        <Card.Title>
-          {firstName} {lastName}
-        </Card.Title>
+        <div className="row">
+          <div className="col-md-4">
+            <Card.Title>
+            <Link to={`../patient/${id}/`}>{firstName} {lastName}</Link>
+              <h3>Age:</h3>
+              {ageInYears}
+            </Card.Title>
+          </div>
+          <div className="col-md-4">
+            <h3>Date:</h3>
+            {formattedDate}
+            <br />
+            <h3>Time:</h3>
+            {formattedTime}
+          </div>
+          <div className="col-md-4">
+            <h3>Provider:</h3>
+            {provider} {pFirstName} {pLastName}
+          </div>
+        </div>
         <Card.Text>
-          <h3>date:</h3>
-          {time}
-          <h3>Time:</h3>
-          <h3>provider:</h3>
-          {provider} {pFirstName} {pLastName}
           <br />
-          <h3>patient:</h3>
-          {firstName} {lastName}
-          <br />
-          <h3>age:</h3>
-          {ageInYears}
-          <br />
-          <h3>neuro:</h3>
+          <h3>Neuro:</h3>
           {neuro}
+          <br />
+          <h3>Cardio:</h3>
+          {cardio}
+          <br />
+          <h3>Respiratory:</h3>
+          {respiratory}
+          <br />
+          <h3>Gastrointestinal:</h3>
+          {gi}
           <br />
           <h3>GU:</h3>
           {gu}
@@ -88,11 +104,12 @@ function AnAssessCard({
         >
           Edit Assessment
         </Button>
-        <Button variant="danger" onClick={DeleteThem}>
+        <Button className="btn btn-danger m-2" onClick={DeleteThem}>
           Delete Assessment
         </Button>
       </Card.Body>
     </Card>
   );
 }
+
 export default AnAssessCard;

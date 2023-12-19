@@ -53,7 +53,7 @@ function EditCard({
       });
 
       if (response.status === 204) {
-        window.location.reload();
+        navigate(`/assessments/${id}`);
       }
     } catch (err) {
       alert("Could not create assessment");
