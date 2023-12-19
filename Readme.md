@@ -31,14 +31,14 @@ Mobile Accessibility:
 Mobile compatibility for easy access on smartphones or tablets, enabling nurses to view patient information on the go.
 Data Export and Reporting:
 
-The ability to export patient hand-off summaries for documentation purposes or for sharing with other healthcare professionals.
+<!-- The ability to export patient hand-off summaries for documentation purposes or for sharing with other healthcare professionals.
 Integration with Electronic Health Records (EHR):
 
 Integration with existing EHR systems to pull patient data seamlessly and avoid redundant data entry.
 Training and Support:
 
 Comprehensive training materials and customer support to assist nurses in adopting and using the app effectively.
-Benefits:
+Benefits: -->
 
 Efficiency: Streamlines the hand-off process, reducing the likelihood of information gaps.
 Accuracy: Minimizes the risk of errors by presenting up-to-date patient information.

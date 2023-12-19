@@ -23,13 +23,14 @@ const AllAssessments = () => {
         const response = await api.get(`v1/assessments/encounter/${id}/`, {
           headers,
         });
-        // console.log(response.data)
-        setAssessments(response.data);
+        {response.data.length >0 &&
+          setAssessments(response.data);
+        }
   
   
       
       } catch (error) {
-        setError(error.message);
+        setError("No Assessments for this encounter");
       } finally {
         setLoading(false);
       }
@@ -38,14 +39,11 @@ const AllAssessments = () => {
     useEffect(() => {
       getAssessments();
     }, []);
-  
-    const handleGoToAnAssessments = () => {
-      // Navigate to your desired path
-      navigate("/path-to-an-assessment");
-    };
+
 
 return (
     <>
+    <h1>Assessments for encounter </h1>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
       {!loading && !error && (
@@ -54,6 +52,7 @@ return (
             <div key={idx}>
               <AssessCard
                 time={assessment.assessment_time}
+                pt_id={assessment.encounter.patient_id.id}
                 provider={assessment.provider.profession}
                 pFirstName={assessment.provider.first_name}
                 pLastName={assessment.provider.last_name}

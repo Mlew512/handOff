@@ -15,6 +15,7 @@ const EditPatient = () => {
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
   const [dateOfBirth, setDateOfBirth] = useState();
+  const [sex, setSex] = useState();
   const [allergies, setAllergies] = useState();
   const [pmh, setPmh] = useState();
   const [medicalId, setMedicalId] = useState();
@@ -52,6 +53,7 @@ const EditPatient = () => {
     const data = {
       first_name: firstName,
       last_name: lastName,
+      sex:sex,
       date_of_birth: dateOfBirth,
       allergies: allergies,
       past_medical_history: pmh,
@@ -94,7 +96,7 @@ const EditPatient = () => {
   };
 
   return (
-    <Row className="justify-content-center">
+    <Row id="patientsPage" className="justify-content-center">
       <Card style={{ width: "30rem", margin: "20px" }}>
         <Card.Body>
           <Card.Title>Edit Patient</Card.Title>
@@ -138,6 +140,19 @@ const EditPatient = () => {
                 onChange={(e) => setDateOfBirth(e.target.value)}
               />
             </div>
+            <div className="mb-3">
+              <label htmlFor="sex" className="form-label">
+                sex:
+              </label>
+              <input
+                type="text"
+                id="allergies"
+                className="form-control"
+                placeholder={patient.sex}
+                value={sex}
+                onChange={(e) => setSex(e.target.value)}
+              />
+              </div>
             <div className="mb-3">
               <label htmlFor="allergies" className="form-label">
                 Allergies:

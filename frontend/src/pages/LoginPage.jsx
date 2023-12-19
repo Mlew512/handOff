@@ -24,6 +24,7 @@ const Login = () => {
     api.defaults.headers.common["Authorization"] = `Token ${token}`;
     setUser(user);
     navigate("/");
+    window.location.reload();
     };
 
     return (

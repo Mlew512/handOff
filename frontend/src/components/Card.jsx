@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-function Cards({ firstName, lastName, id, age, pmh, allergies }) {
+function Cards({ firstName, lastName, id, sex, age, pmh, allergies }) {
   const navigate = useNavigate();
   const [ageInYears, setAgeInYears] = useState();
   function calculateAge() {
@@ -23,12 +23,14 @@ function Cards({ firstName, lastName, id, age, pmh, allergies }) {
     <Card style={{ width: "18rem", margin: "2rem"}}>
       <Card.Body>
         <Card.Title>
-        <Link to={`../patient/${id}/`}>{firstName} {lastName}</Link>
+        <Link to={`../patient/${id}/`}>{lastName} , {firstName}</Link>
         </Card.Title>
         <Card.Text>
           id: {id}
           <br />
           Age: {ageInYears}
+          <br />
+          Sex: {sex}
           <br />
           Allergies: {allergies}
           <br />

@@ -11,6 +11,7 @@ const AddPatient = () => {
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [sex, setSex] = useState("")
   const [dateOfBirth, setDateOfBirth] = useState(null);
   const [allergies, setAllergies] = useState("");
   const [pmh, setPmh] = useState("");
@@ -27,6 +28,7 @@ const AddPatient = () => {
     const data = {
         first_name: firstName,
         last_name : lastName,
+        sex: sex,
         date_of_birth: dateOfBirth,
         allergies :allergies,
         past_medical_history : pmh, 
@@ -50,7 +52,7 @@ const AddPatient = () => {
   };
 
   return (
-    <Row style={{ padding: "0 10vmin" }}>
+    <Row id="patientsPage" style={{ padding: "0 10vmin" }}>
       <Col md={6} className="mx-auto">
         <form onSubmit={(e) => createPatient(e)}>
           <h2>Create a patient</h2>
@@ -78,6 +80,19 @@ const AddPatient = () => {
               placeholder="Last Name"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="lastName" className="form-label">
+              Sex:
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="sex"
+              placeholder="sex"
+              value={lastName}
+              onChange={(e) => setSex(e.target.value)}
             />
           </div>
           <div className="mb-3">

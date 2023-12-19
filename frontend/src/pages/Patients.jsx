@@ -47,13 +47,14 @@ const Patients = () => {
       {error && <p>Error: {error}</p>}
       {!loading && !error && (
         <>
-          <Row xs={1} md={2} lg={3} xl= {4} xxl={5} className="g-4">
+          <Row id="patientsPage" xs={1} md={2} lg={3} xl= {4} xxl={5} className="g-4">
             {patients.map((patient) => (
               <Col key={patient.id}>
                 <Cards
                   id={patient.id}
                   firstName={patient.first_name}
                   lastName={patient.last_name}
+                  sex={patient.sex}
                   age={patient.date_of_birth}
                   pmh={patient.past_medical_history}
                   allergies={patient.allergies}

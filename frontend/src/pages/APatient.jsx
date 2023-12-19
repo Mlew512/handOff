@@ -2,9 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import APatientCard from "../components/APatientCard.jsx";
 import { api } from "../utilities";
-// import { useNavigate } from "react-router-dom";
-// import Button from "react-bootstrap/Button";
-// import LastAssessments from "../components/GetLastAssessment.jsx";
 import EncounterCards from "../components/EncounterCard.jsx";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -106,6 +103,7 @@ const APatient = () => {
                 id={patient?.id}
                 firstName={patient?.first_name}
                 lastName={patient?.last_name}
+                sex={patient?.sex}
                 age={patient?.date_of_birth}
                 pmh={patient?.past_medical_history}
                 allergies={patient?.allergies}

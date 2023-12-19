@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-function APatientCard({ firstName, lastName, id, age, pmh, allergies }) {
+function APatientCard({ firstName, lastName, id, sex, age, pmh, allergies }) {
   const navigate = useNavigate();
   const [ageInYears, setAgeInYears] = useState();
   function calculateAge() {
@@ -23,13 +23,15 @@ function APatientCard({ firstName, lastName, id, age, pmh, allergies }) {
       <Card.Body>
         <Card.Title>
           <Link to={`../patient/${id}/`}>
-            {firstName} {lastName}
+            {lastName} , {firstName}
           </Link>
         </Card.Title>
         <Card.Text>
           id: {id}
           <br />
           age: {ageInYears}
+          <br />
+          Sex: {sex}
           <br />
           allergies: {allergies}
           <br />

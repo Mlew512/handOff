@@ -15,6 +15,7 @@ function AssessCard({
   firstName,
   id,
   lastName,
+  pt_id,
   time,
   provider,
   pFirstName,
@@ -30,6 +31,7 @@ function AssessCard({
   const [ageInYears, setAgeInYears] = useState(calculateAge(age));
   const formattedDate = format(new Date(time), "MM-dd-yyyy");
   const formattedTime = format(new Date(time), "HH:mm:ss");
+  console.log(id)
 
   useEffect(() => {
     setAgeInYears(calculateAge(age));
@@ -41,8 +43,8 @@ function AssessCard({
         <div className="row">
           <div className="col-md-4">
             <Card.Title>
-              <Link to={`../patient/${id}/`}>
-                {firstName} {lastName}
+              <Link to={`../patient/${pt_id}/`}>
+                {lastName} , {firstName}
               </Link>
               <h3>Age:</h3>
               {ageInYears}
@@ -57,7 +59,7 @@ function AssessCard({
           </div>
           <div className="col-md-4">
             <h3>Provider:</h3>
-            {provider} {pFirstName} {pLastName}
+            {provider}: {pFirstName} {pLastName}
             <br />
           </div>
         </div>

@@ -107,8 +107,10 @@ const Encounters = () => {
                   </Card.Title>
                   <Card.Img variant="top" src={image} />
                   <Card.Body>
-                    Name: {encounter.patient_id.first_name}{" "}
-                    {encounter.patient_id.last_name}
+                    Name: 
+                    <br/>
+                    {encounter.patient_id.last_name} ,{" "} 
+                    {encounter.patient_id.first_name}
                     <br />
                     DOB: {encounter.patient_id.date_of_birth}
                     <br />

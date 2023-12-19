@@ -61,7 +61,7 @@ const SearchResults = () => {
           {patients.length === 0 ? (
             <p>No matching results found.</p>
           ) : (
-            <Row xs={1} md={2} lg={3} className="g-4">
+            <Row id="patientsPage" xs={1} md={2} lg={3} className="g-4">
               {patients.map((patient) => (
                 <Col key={patient.id}>
                   <Cards
