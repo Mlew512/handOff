@@ -14,3 +14,8 @@ class AClientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Client
         fields= ['profession','first_name','last_name']
+
+class TheClientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Client
+        fields= ['profession','first_name','last_name','assignments', 'username','id']

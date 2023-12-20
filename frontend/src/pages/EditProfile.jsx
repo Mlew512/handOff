@@ -19,7 +19,7 @@ const EditProfile = () => {
     try {
       setLoading(true);
       const response = await api.get(`v1/users/`, { headers });
-      console.log(response.data)
+      // console.log(response.data)
       setProfile(response.data);
     } catch (error) {
       setError(error.message);

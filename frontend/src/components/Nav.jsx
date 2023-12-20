@@ -5,7 +5,7 @@ import { api } from "../utilities";
 import Button from "react-bootstrap/esm/Button";
 import patient from '../assets/patient.svg';
 import addPatient from '../assets/addPatient.svg';
-
+import profileIcon from "../assets/profileIcon.svg";
 
 const NavBar = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -94,6 +94,15 @@ const NavBar = () => {
                 </div>
               </div>
             </form>
+          )}
+          {isLoggedIn && (
+          <Link className="nav-item nav-link m-2" to={`/profile/`}>
+                <img
+                  src={profileIcon}
+                  alt="Profile"
+                  style={{ width: '50px', height: '50px' }}
+                />
+              </Link>
           )}
 
           <div className="ml-auto">

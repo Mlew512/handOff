@@ -17,7 +17,6 @@ import AddPatient from "./pages/AddPatient";
 import EditPatient from "./pages/EditPatient";
 import SearchResults from "./pages/SearchPage";
 import AProfile from "./pages/UserProfile";
-import EditProfile from "./components/EditProfileCard";
 
 const router = createBrowserRouter([
   {
@@ -87,10 +86,6 @@ const router = createBrowserRouter([
       {
         path: "profile/",
         element: <AProfile />,
-      },
-      {
-        path: "profile/edit/",
-        element: <EditProfile />,
       },
       {
         path: "search/:searchValue",

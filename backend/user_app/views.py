@@ -12,7 +12,9 @@ from rest_framework.status import (
 from rest_framework.authtoken.models import Token
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-from .serializers import AllClientSerializer
+from .serializers import AllClientSerializer, TheClientSerializer
+
+
 class Sign_up(APIView):
     def post(self, request):
         try:
@@ -61,7 +63,7 @@ class Info(APIView):
         user = AllClientSerializer(request.user)
         return Response(user.data)
     def put(self,request):
-        user = AllClientSerializer(request.user, data = request.data, partial= True)
+        user = TheClientSerializer(request.user, data = request.data, partial= True)
         if user.is_valid():
             user.save()
             return Response(user.data)

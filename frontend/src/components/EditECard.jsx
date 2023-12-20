@@ -37,6 +37,7 @@ function EditECard({
       });
 
       if (response.status === 204) {
+        navigate(`/encounters/${id}/`)
         window.location.reload();
       }
     } catch (err) {
@@ -49,7 +50,7 @@ function EditECard({
     <Card style={{ width: "80rem", margin: "1rem" }}>
       <Card.Body>
         <Card.Title>
-          Edit Assessment
+          Edit Encounter
         </Card.Title>
         <Card.Text>
           <h3>Date:</h3>

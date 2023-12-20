@@ -4,12 +4,12 @@ import Cards from "../components/Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
-
 const Patients = () => {
   const [patients, setPatients] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const [assignments, setAssignments] = useState([]);
+  const [assignmentIds, setAssignmentIds] = useState([]);
 
   useEffect(() => {
     const getPatients = async () => {
@@ -26,7 +26,9 @@ const Patients = () => {
         };
 
         const response = await api.get(`v1/patients`, { headers });
-        const sortedPatients = response.data.sort((a, b) => a.last_name.localeCompare(b.last_name));
+        const sortedPatients = response.data.sort((a, b) =>
+          a.last_name.localeCompare(b.last_name)
+        );
         setPatients(sortedPatients);
       } catch (error) {
         console.error("Error fetching patients:", error);
@@ -39,13 +41,36 @@ const Patients = () => {
     getPatients();
   }, []);
 
+  const getProfile = async () => {
+    const token = localStorage.getItem("token");
+
+    const headers = {
+      Authorization: `token ${token}`,
+    };
+
+    try {
+      setLoading(true);
+      const response = await api.get(`v1/users/`, { headers });
+      setAssignments(response.data.assignments);
+      setAssignmentIds(response.data.assignments.map((patient) => patient.id));
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getProfile();
+  }, []);
+
   return (
     <>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
       {!loading && !error && (
         <>
-          <Row id="patientsPage" xs={1} md={2} lg={3} xl= {4} xxl={5} className="g-4">
+          <Row id="patientsPage" xs={1} md={2} lg={3} xl={4} xxl={5} className="g-4">
             {patients.map((patient) => (
               <Col key={patient.id}>
                 <Cards
@@ -56,6 +81,8 @@ const Patients = () => {
                   age={patient.date_of_birth}
                   pmh={patient.past_medical_history}
                   allergies={patient.allergies}
+                  assignmentIds={assignmentIds}
+                  assignments={assignments}
                 />
               </Col>
             ))}

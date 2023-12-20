@@ -14,7 +14,7 @@ const AProfile = () => {
   const [error, setError] = useState(null);
 
   const getProfile = async () => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");  
 
     const headers = {
       Authorization: `token ${token}`,
@@ -23,7 +23,7 @@ const AProfile = () => {
     try {
       setLoading(true);
       const response = await api.get(`v1/users/`, { headers });
-      console.log(response.data)
+      // console.log(response.data)
       setProfile(response.data);
     } catch (error) {
       setError(error.message);
@@ -45,12 +45,7 @@ const AProfile = () => {
           <Row>
             <Col md={6}>
               <AProfileCard
-                id={profile?.id}
-                profession={profile?.profession}
-                firstName={profile?.first_name}
-                lastName={profile?.last_name}
                 assignments={profile?.assignments}
-                username={profile?.username}
               />
             </Col>
           </Row>

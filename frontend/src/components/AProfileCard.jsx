@@ -1,51 +1,25 @@
 /* eslint-disable react/prop-types */
+import React from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import Cards from "./Card";
-import { Col } from "react-bootstrap";
-import {Row} from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import EditProfile from "../pages/EditProfile";
-EditProfile
+import Cards from "./Card";
 
-function AProfileCard({ firstName, lastName, id, profession, assignments, username }) {
-    const navigate = useNavigate();
+function AProfileCard({
+  assignments,
+}) {
+  const assignmentIds = assignments.map((patient) => patient.id);
 
   return (
     <>
-      {/* <Card style={{ width: "18rem", margin: "2rem" }}>
-        <Card.Body>
-          <Card.Title>
-              {profession}:
-          </Card.Title>
-          <Card.Text>
-          {firstName}, {lastName} 
-          <br/>
-          username: {username}
-          <br/>
-          id: {id}
-          <br/>
-            <Button className="m-1">Edit Profile</Button>
-          </Card.Text>
-        </Card.Body>
-      </Card> */}
-    <EditProfile />
-      
-      <Row
-        id="patientsPage"
-        xs={1}
-        md={2}
-        lg={3}
-        xl={4}
-        xxl={5}
-        className="g-4"
-      >
-        <h2>Assignments:</h2>
-        <br/>
+      <EditProfile />
+
+      <Row id="patientsPage" xs={1} md={2} lg={3} xl={4} xxl={5} className="g-4">
+        <h2>Assigned Patients:</h2>
+        <br />
         {assignments.map((patient) => (
-          <Col key={patient.id}>
+          <Col key={patient.id} md={8} lg={8} xl={8}>
             <Cards
               id={patient.id}
               firstName={patient.first_name}
@@ -54,6 +28,8 @@ function AProfileCard({ firstName, lastName, id, profession, assignments, userna
               age={patient.date_of_birth}
               pmh={patient.past_medical_history}
               allergies={patient.allergies}
+              assignmentIds={assignmentIds}
+              assignments={assignments}
             />
           </Col>
         ))}
@@ -61,4 +37,5 @@ function AProfileCard({ firstName, lastName, id, profession, assignments, userna
     </>
   );
 }
+
 export default AProfileCard;
