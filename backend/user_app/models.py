@@ -3,8 +3,8 @@ from django.contrib.auth.models import AbstractUser
 from patient_app.models import Patient
 
 PROFESSION_TYPE = (
-    ("registered nurse", "REGISTERED NURSE"),
-    ("physician", "physician"),
+    ("Registered Nurse", "REGISTERED NURSE"),
+    ("physician", "Physician"),
 )
 
 
@@ -16,7 +16,7 @@ class Client(AbstractUser):
         unique=True,
     )
     profession = models.CharField(
-        max_length=16, choices=PROFESSION_TYPE, default="registered nurse"
+        max_length=16, choices=PROFESSION_TYPE, default="Registered Nurse"
     )
     assignments = models.ManyToManyField(Patient, blank=True)
 

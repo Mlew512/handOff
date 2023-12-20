@@ -1,14 +1,10 @@
-//get user by id    
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import APatientCard from "../components/APatientCard.jsx";
 import { api } from "../utilities";
-import EncounterCards from "../components/EncounterCard.jsx";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import AProfileCard from "../components/AProfileCard.jsx";
+import EditProfileCard from "../components/EditProfileCard"
 
-const AProfile = () => {
+const EditProfile = () => {
   const [profile, setProfile] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -44,7 +40,7 @@ const AProfile = () => {
         <>
           <Row>
             <Col md={6}>
-              <AProfileCard
+              <EditProfileCard
                 id={profile?.id}
                 profession={profile?.profession}
                 firstName={profile?.first_name}
@@ -60,4 +56,4 @@ const AProfile = () => {
   );
 };
 
-export default AProfile;
+export default EditProfile;

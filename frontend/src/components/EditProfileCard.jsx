@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
-import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import { api } from "../utilities";
 
 function EditProfileCard({ firstName, lastName, id, profession, username }) {
   const [editMode, setEditMode] = useState(false);
@@ -15,25 +15,28 @@ function EditProfileCard({ firstName, lastName, id, profession, username }) {
   };
 
   const handleSave = async () => {
+    const token = localStorage.getItem("token");
+
+    const headers = {
+      Authorization: `token ${token}`,
+    };
+    const data = {
+      firstName: editedFirstName,
+      lastName: editedLastName,
+      profession: editedProfession,
+    };
+
     try {
-      // Make a PUT request to update user information
-      await axios.put(`v1/users/${id}`, {
-        firstName: editedFirstName,
-        lastName: editedLastName,
-        profession: editedProfession,
-      });
+      await api.put(`v1/users/`, data, { headers });
 
       setEditMode(false);
-      // You may want to update the profile information in your state or API at this point
     } catch (error) {
       console.error("Error updating user:", error);
-      // Handle error as needed
     }
   };
 
   const handleCancel = () => {
     setEditMode(false);
-    // Reset edited values to original values
     setEditedFirstName(firstName);
     setEditedLastName(lastName);
     setEditedProfession(profession);

@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { api } from "../utilities";
-import { Link, useNavigate } from "react-router-dom";
-import Button from "react-bootstrap/esm/Button";
 import Cards from "../components/Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
@@ -11,7 +9,7 @@ const Patients = () => {
   const [patients, setPatients] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
+
 
   useEffect(() => {
     const getPatients = async () => {

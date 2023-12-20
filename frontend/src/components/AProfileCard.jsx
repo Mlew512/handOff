@@ -1,18 +1,21 @@
+/* eslint-disable react/prop-types */
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Cards from "./Card";
 import { Col } from "react-bootstrap";
 import {Row} from "react-bootstrap";
+import EditProfile from "../pages/EditProfile";
+EditProfile
 
-function AProfileCard({ firstName, lastName, id, profession, assignments }) {
-  //   const navigate = useNavigate();
+function AProfileCard({ firstName, lastName, id, profession, assignments, username }) {
+    const navigate = useNavigate();
 
   return (
     <>
-      <Card style={{ width: "18rem", margin: "2rem" }}>
+      {/* <Card style={{ width: "18rem", margin: "2rem" }}>
         <Card.Body>
           <Card.Title>
               {profession}:
@@ -20,11 +23,16 @@ function AProfileCard({ firstName, lastName, id, profession, assignments }) {
           <Card.Text>
           {firstName}, {lastName} 
           <br/>
-          {/* edit profile page link */}
-            <Button className="m-1">Edit Profile </Button>
+          username: {username}
+          <br/>
+          id: {id}
+          <br/>
+            <Button className="m-1">Edit Profile</Button>
           </Card.Text>
         </Card.Body>
-      </Card>
+      </Card> */}
+    <EditProfile />
+      
       <Row
         id="patientsPage"
         xs={1}
@@ -34,6 +42,8 @@ function AProfileCard({ firstName, lastName, id, profession, assignments }) {
         xxl={5}
         className="g-4"
       >
+        <h2>Assignments:</h2>
+        <br/>
         {assignments.map((patient) => (
           <Col key={patient.id}>
             <Cards
