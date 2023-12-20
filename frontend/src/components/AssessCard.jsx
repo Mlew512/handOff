@@ -16,7 +16,7 @@ function AssessCard({
   id,
   lastName,
   pt_id,
-  time,
+  assess_time,
   provider,
   pFirstName,
   pLastName,
@@ -29,9 +29,10 @@ function AssessCard({
 }) {
   const navigate = useNavigate();
   const [ageInYears, setAgeInYears] = useState(calculateAge(age));
-  const formattedDate = format(new Date(time), "MM-dd-yyyy");
-  const formattedTime = format(new Date(time), "HH:mm:ss");
+  const formattedDate = format(new Date(assess_time), "MM-dd-yyyy");
+  const formattedTime = format(new Date(assess_time), "HH:mm");
   console.log(id)
+  console.log(formattedTime)
 
   useEffect(() => {
     setAgeInYears(calculateAge(age));
@@ -51,11 +52,8 @@ function AssessCard({
             </Card.Title>
           </div>
           <div className="col-md-4">
-            <h3>Date:</h3>
-            {formattedDate}
-            <br />
-            <h3>Time:</h3>
-            {formattedTime}
+            <h3>Assessment Time:</h3>
+            {assess_time}
           </div>
           <div className="col-md-4">
             <h3>Provider:</h3>

@@ -17,7 +17,6 @@ from rest_framework.status import (
 from rest_framework.permissions import IsAuthenticated
 
 
-# Create your views here.
 class All_Assessments(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -48,7 +47,6 @@ class All_Encounter_Assessments(APIView):
         elif encounter_id is not None:
             assessments = Assessment.objects.filter(encounter_id=encounter_id)
         else:
-            # Handle other cases or return an error response
             return Response("Invalid request parameters", status=status.HTTP_400_BAD_REQUEST)
 
         if not assessments.exists():

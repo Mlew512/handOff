@@ -51,7 +51,7 @@ return (
           {assessments.map((assessment, idx) => (
             <div key={idx}>
               <AssessCard
-                time={assessment.assessment_time}
+                assess_time={assessment.assessment_time}
                 pt_id={assessment.encounter.patient_id.id}
                 provider={assessment.provider.profession}
                 pFirstName={assessment.provider.first_name}

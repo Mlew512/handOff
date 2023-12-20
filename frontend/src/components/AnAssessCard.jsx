@@ -70,11 +70,8 @@ function AnAssessCard({
             </Card.Title>
           </div>
           <div className="col-md-4">
-            <h3>Date:</h3>
-            {formattedDate}
-            <br />
-            <h3>Time:</h3>
-            {formattedTime}
+            <h3>Assessment Time:</h3>
+            {time}
           </div>
           <div className="col-md-4">
             <h3>Provider:</h3>

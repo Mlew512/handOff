@@ -47,7 +47,7 @@ function EditCard({
     console.log(data);
 
     try {
-      console.log(headers);
+      // console.log(headers);
       const response = await api.put(`v1/assessments/${id}/`, data, {
         headers,
       });
@@ -76,7 +76,7 @@ function EditCard({
                 <input
                   className="form-control"
                   type="datetime-local"
-                  defaultValue={assessmentTime}
+                  value={assessmentTime}
                   onChange={(e) => setAssessmentTime(e.target.value)}
                 />
               </td>
