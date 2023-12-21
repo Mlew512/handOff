@@ -36,7 +36,6 @@ class Log_in(APIView):
         if client:
             user_id = client.id
 
-            # You can store the user ID in the session if needed
             request.session["user_id"] = user_id
 
             token, created = Token.objects.get_or_create(user=client)

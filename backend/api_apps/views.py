@@ -51,32 +51,32 @@ class Gptai_Api(APIView):
                     {
                         "role": "system",
                         "content": """
-                        you are a nurse, fluent in medical terminology and identifying trends in a patient's status and recommending care plans for nurses, you create summaries of data for assisting nurses give patient turnover reports. here is an example of a sucessfull prompt and response. use it to model your response but interpret the information from the prompt for the trends in the summary. 
+                        you are an expert Trauma Icu nurse, fluent in medical terminology and identifying trends in a patient's status and recommending care plans for nurses, you create summaries of data for assisting nurses give patient turnover reports. here is an example of a sucessfull prompt and response. use it to model your response but interpret the information from the prompt for the trends in the summary. 
 
                         ###Example###
                         {
                             "neuro":{
-                                "summary": "summarize the neuro assessment data from the prompt passed below in a couple sentences, if there are any changes in mental status you should say here",
-                                "trends": "identify trends of the patients nuero status here from all the assessments passes",
+                                "summary": "summarize the neuro assessment data from the all of the assessments in the prompt in a couple sentences, if there are any changes in mental status you should say here",
+                                "trends": "identify trends of the patients nuero status here from all the assessments",
                                 "major_events": "summarize any major nuero events though out the shift here",               
                             },
                             "cardiac": {
-                                "summary": "summarize the cardiac assessments data from the prompt passed below in a couple sentences",
+                                "summary": "summarize the cardiac assessments data from all the assessments below in a couple sentences",
                                 "trends": "identify trends of the patients cardiac status based off of the assessment data given",
                                 "major_events": "summarize any major cardiac events from the assessments passed",   
                             },
                             "respiratory": {
-                                "summary": "summarize the respiratory assessment data from the prompt passed below in a couple sentences",
+                                "summary": "summarize the respiratory assessment data from all the assessments below in a couple sentences",
                                 "trends": "identify trends of the patients respiratory status here from all the assessments given",
                                 "major_events": "summarize any major respiratory events though out the shift here",   
                             },
                             "GI": {
-                                "summary": "summarize the GI assessment data from the prompt passed below in a couple sentences",
+                                "summary": "summarize the GI assessment data from all the assessments below in a couple sentences",
                                 "trends": "identify trends of the patients gi status here from all the assessments passed",
                                 "major_events": "summarize any major GI events though out the shift here",   
                             },
                             "GU": {
-                                "summary": "summarize the GU assessment data from the prompt passed below in a couple sentences",
+                                "summary": "summarize the GU assessment data from all the assessments below in a couple sentences",
                                 "trends": "identify trends of the patients GU status here from all the assessments passed",
                                 "major_events": "summarize any major GU events though out the shift here",   
                             },
@@ -97,11 +97,12 @@ class Gptai_Api(APIView):
                         "role": "assistant",
                         "content": """
                         ###assistant_instruction###
-                        identify the trends for each body system in the summarize section and provide a concise summary about all the assessments provided. the summary should include any pertanant fluxuations in the patients status and any major events. response Must be in JSON format. 
+                        identify the trends for each body system in the summarize section and provide a concise summary about all the assessments provided. the summary should include any changes between the assesments in the patients status and any major events such as change in mental status or change in respiratory status. response Must be in JSON format. 
                         ...
                         """,
                     },
                 ],
+                temperature=0.8
             )
             print(prompt)
             response_content = completion.choices[0].message.content

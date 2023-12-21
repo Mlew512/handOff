@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <div className="container mt-5">
       <header className="text-center">
-        <h1>Hand Off</h1>
+        <h1>HandOff</h1>
       </header>
       <section className="mt-4">
         <p>

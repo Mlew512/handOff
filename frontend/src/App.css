@@ -4,3 +4,18 @@
 #patientsPage{
     width:100%;
 }
+.profile-card-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .assigned-patients-section {
+    margin-top: 20px;
+  }
+  
+  .section-header {
+    color: #007bff; /* Bootstrap primary color */
+    font-size: 24px;
+    margin-bottom: 15px;
+  }

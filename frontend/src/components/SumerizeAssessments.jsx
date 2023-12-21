@@ -80,7 +80,7 @@ const SumerizeAssessments = () => {
             <p>Summarize assessment data from the last 12 hours.</p>
           )}
         </Card.Body>
-      </Card>
+      </Card> 
       {error && <p>Error: {error}</p>}
     </>
   );

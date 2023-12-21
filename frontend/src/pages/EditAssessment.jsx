@@ -20,9 +20,9 @@ const EditAssessment = () => {
       try {
         setLoading(true);
         const response = await api.get(`v1/assessments/${id}/`, {
-          headers,
+          headers 
         });
-        console.log(response.data)
+        // console.log(response.data)
         setAssessment(response.data);
   
   

@@ -67,7 +67,3 @@ class A_patient(APIView):
             return Response(patient.errors, status= HTTP_400_BAD_REQUEST)
     
 
-
-# ----------view patients by unit admitted to--------
-
-# ------------modify patient info (unit admitted to/ PMH/ Allergies)------
