@@ -38,8 +38,6 @@ const EditProfile = () => {
       {error && <p>Error: {error}</p>}
       {!loading && !error && (
         <>
-          <Row>
-            <Col md={6}>
               <EditProfileCard
                 id={profile?.id}
                 profession={profile?.profession}
@@ -48,8 +46,6 @@ const EditProfile = () => {
                 assignments={profile?.assignments}
                 username={profile?.username}
               />
-            </Col>
-          </Row>
         </>
       )}
     </>

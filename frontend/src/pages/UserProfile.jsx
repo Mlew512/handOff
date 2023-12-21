@@ -42,13 +42,9 @@ const AProfile = () => {
       {error && <p>Error: {error}</p>}
       {!loading && !error && (
         <>
-          <Row>
-            <Col md={6}>
               <AProfileCard
                 assignments={profile?.assignments}
               />
-            </Col>
-          </Row>
         </>
       )}
     </>

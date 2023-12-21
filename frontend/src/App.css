@@ -19,3 +19,14 @@
     font-size: 24px;
     margin-bottom: 15px;
   }
+  #root{
+    background-color: rgba(2, 87, 87, 0.5);
+    height:100%;
+    width:100%;
+  }
+  .card a {
+    color:teal;
+  }
+  .card a:hover{
+    color:rgba(70, 131, 180, 0.5);
+  }
