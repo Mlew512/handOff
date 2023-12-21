@@ -96,7 +96,7 @@ const Encounters = () => {
       {error && <p>Error: {error}</p>}
       {!loading && !error && (
         <>
-          <Row>
+          <Row style={{"width":"100%"}}>
             <Col md={6}>
               <div>
                 <h2>Encounter</h2>
