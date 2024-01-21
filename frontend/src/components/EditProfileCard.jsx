@@ -21,8 +21,8 @@ function EditProfileCard({ firstName, lastName, id, profession, username }) {
       Authorization: `token ${token}`,
     };
     const data = {
-      firstName: editedFirstName,
-      lastName: editedLastName,
+      first_name: editedFirstName,
+      last_name: editedLastName,
       profession: editedProfession,
     };
 

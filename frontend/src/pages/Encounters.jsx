@@ -100,7 +100,7 @@ const Encounters = () => {
             <Col md={6}>
               <div>
                 <h2>Encounter</h2>
-                <Card style={{ width: "18rem", margin: "2rem" }}>
+                <Card className="shadow" style={{ width: "18rem", margin: "2rem" }}>
                   <Card.Title>
                     Admitted: {encounterDate}
                     {encounterTime}{" "}

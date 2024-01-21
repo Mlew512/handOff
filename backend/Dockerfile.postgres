@@ -1,0 +1,28 @@
+FROM postgres:latest
+
+# Set environment variables for the PostgreSQL database
+ENV POSTGRES_USER=matt
+ENV POSTGRES_PASSWORD=mpl
+
+# Expose port 5432 for PostgreSQL
+EXPOSE 5432
+
+# Enable SUPERUSER rights for the database
+ENV POSTGRES_DB=handofftest
+ENV POSTGRES_INITDB_ARGS="--encoding=UTF-8 --lc-collate=C --lc-ctype=C --data-checksums"
+
+# Start the PostgreSQL server using the correct entrypoint
+ENTRYPOINT ["docker-entrypoint.sh"]
+
+# Pass the command "postgres" as an argument to the entrypoint
+CMD ["postgres"]
+
+# CMDLINE INSTRUCTIONS
+# BUILD DOCKER CONTAINER
+# 1.docker build -t my-postgres-container .
+# run the docker image in a container on different port
+# 2. docker run -d -p 5433:5432 --rm --name postgres my-postgres-container 
+# 3. docker ps (looks at the containers runnning)
+# login to psql via docker
+# 4.PGPASSWORD=mpl psql -U matt -h localhost -p 5433 handofftest
+# 5. docker stop postgres 

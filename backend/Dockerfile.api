@@ -1,0 +1,34 @@
+# Use the official Python base image
+FROM python:latest
+
+# Set environment variables for the Django application
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Create and set the working directory inside the container
+WORKDIR /backend
+
+# updates ubuntus installer
+RUN apt-get update
+# Install system dependencies to interact with postgresql
+RUN apt-get install -y --no-install-recommends \
+    gcc \
+    postgresql-client
+
+# COPY requirements.txt onto the Docker container
+COPY requirements.txt .
+
+# Upgrade pip
+RUN pip install --upgrade pip
+
+# Install Python Projects Environment dependencies
+RUN pip install -r requirements.txt
+
+# Copy the entire Django project to the container
+COPY . .
+
+# Expose port 8000 for Django development server
+EXPOSE 8000
+
+# Start the Django development server
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

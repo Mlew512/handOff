@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { api } from "../utilities";
-import EditECard from "../components/EditECard";
+import EditECard from "../components/EditEncounterCard";
 
 
 const EditEncounter = () => {
