@@ -1,5 +1,9 @@
 version: '3'
 
+networks:
+  handoff_network:
+    external: true
+
 services:
   api:
     build:
@@ -41,9 +45,6 @@ services:
     networks:
       - handoff_network
 
-networks:
-  handoff_network:
-    external: true
 
 volumes:
   postgres_data:
