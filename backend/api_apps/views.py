@@ -14,28 +14,30 @@ import requests
 logger = logging.getLogger(__name__)
 
 
-
 class Gptai_Api(APIView):
     def post(self, request):
         try:
             api_key = env.get("OPENAI_API_KEY")
             if not api_key:
-                raise ImproperlyConfigured("OPENAI_API_KEY is not set in the environment.")
+                raise ImproperlyConfigured(
+                    "OPENAI_API_KEY is not set in the environment."
+                )
 
             client = OpenAI(api_key=api_key)
 
             prompt = request.data.get("prompt", "")
-            setup_message= {"role": "system",
-                                "content": """
+            setup_message = {
+                "role": "system",
+                "content": """
                                 you are an expert Trauma Icu nurse, fluent in medical terminology and identifying trends in a patient's status and recommending care plans for nurses, you create summaries of data for assisting nurses give patient turnover reports. here is an example of a sucessfull prompt and response. use it to model your response but interpret the information from the prompt for the trends in the summary as the primary source of information, do NOT make up information that is not provided. response must be in json format. 
 
-                                The following 2 messages are an example conversation between a user and you.
-                                """
+                                The following 2 messages are an example conversation between a user and you. the 3rd message is instructions for you. 
+                                """,
             }
 
-            first_prompt= {
-                                "role": "user",
-                                "content": """
+            first_prompt = {
+                "role": "user",
+                "content": """
                                 summarize this assessment data: 0:{
                                     "encounter": 18,
                                     "assessment_time": "2023-12-19T19:00:23.359763Z",
@@ -56,11 +58,11 @@ class Gptai_Api(APIView):
                                     }          
                             }
                                 """,
-                            }
+            }
 
-            first_response= {
-                                "role": "assistant",
-                                "content": """
+            first_response = {
+                "role": "assistant",
+                "content": """
 
                                 sample response
                                 {
@@ -80,22 +82,22 @@ class Gptai_Api(APIView):
                                 }
                                     
                                 """,
-                            }
-            last_prompt ={
-                        "role": "assistant",
-                        "content": """
+            }
+            last_prompt = {
+                "role": "assistant",
+                "content": """
                         ###assistant_instruction###
                         identify the trends for each body system in the summarize section and provide a concise summary about all the assessments provided. the summary should include any changes between the assesments in the patients status and any major events such as change in mental status or change in respiratory status. response Must be in JSON format. 
                         ...
                         """,
-                    }
-            formated_prompt= f" sumarize this assessment data:{prompt} like the example i gave you in the previous 2 messages"
-            actual_prompt= {
-                                "role": "user",
-                                "content": """{formated_prompt}
+            }
+            formated_prompt = f" sumarize this assessment data: {prompt} like the example i gave you in the previous 2 messages but DO NOT COPY THE CONTENT OF THE EXAMPLE CONVERSATION"
+            actual_prompt = {
+                "role": "user",
+                "content": """{formated_prompt}
                                 """,
-                            }
-            
+            }
+
             if not prompt:
                 return Response(
                     {"error": "Prompt is required in the request data."},
@@ -106,9 +108,14 @@ class Gptai_Api(APIView):
 
             completion = client.chat.completions.create(
                 model="gpt-3.5-turbo",
-                messages=[ setup_message, first_prompt,first_response, actual_prompt,last_prompt,
+                messages=[
+                    setup_message,
+                    first_prompt,
+                    first_response,
+                    actual_prompt,
+                    last_prompt,
                 ],
-                temperature=0.2
+                temperature=0.2,
             )
             print(prompt)
             response_content = completion.choices[0].message.content
@@ -137,4 +144,7 @@ class Noun_Project(APIView):
             responseJSON = response.json()
             return Response(responseJSON["icons"][0]["thumbnail_url"])
         else:
-            return Response({"error": "Failed to fetch Noun Project icon"}, status=response.status_code)
+            return Response(
+                {"error": "Failed to fetch Noun Project icon"},
+                status=response.status_code,
+            )
