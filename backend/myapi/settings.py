@@ -86,7 +86,11 @@ WSGI_APPLICATION = 'myapi.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'hand_off',
+        'NAME': 'handofftest',
+        'USER': 'matt',
+        'PASSWORD': 'mpl',
+        'HOST': 'postgres',  # The hostname of the PostgreSQL container (will be explained later)
+        'PORT': '5432',
     }
 }
 

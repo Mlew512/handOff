@@ -1,0 +1,31 @@
+{
+  "neuro": {
+    "summary": "summarize the neuro assessment data from the all of the assessments in the prompt in a couple sentences, if there are any changes in mental status you should say here",
+    "trends": "identify trends of the patients nuero status here from all the assessments",
+    "major_events": "summarize any major nuero events though out the shift here"
+  },
+  "cardiac": {
+    "summary": "summarize the cardiac assessments data from all the assessments below in a couple sentences",
+    "trends": "identify trends of the patients cardiac status based off of the assessment data given",
+    "major_events": "summarize any major cardiac events from the assessments passed"
+  },
+  "respiratory": {
+    "summary": "summarize the respiratory assessment data from all the assessments below in a couple sentences",
+    "trends": "identify trends of the patients respiratory status here from all the assessments given",
+    "major_events": "summarize any major respiratory events though out the shift here"
+  },
+  "GI": {
+    "summary": "summarize the GI assessment data from all the assessments below in a couple sentences",
+    "trends": "identify trends of the patients gi status here from all the assessments passed",
+    "major_events": "summarize any major GI events though out the shift here"
+  },
+  "GU": {
+    "summary": "summarize the GU assessment data from all the assessments below in a couple sentences",
+    "trends": "identify trends of the patients GU status here from all the assessments passed",
+    "major_events": "summarize any major GU events though out the shift here"
+  },
+  "careplan": {
+    "summary": "create one nursing careplan recommendation taking into consideration the patient's assessment data and the diagnosis from the encounter data, response should be less than 3 sentences",
+    "rational": "using data from the assessments back up why you are recommending this careplan with subjective and objective data"
+  }
+}

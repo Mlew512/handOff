@@ -61,7 +61,7 @@ const SumerizeAssessments = () => {
   return (
     <>
       <br />
-      <Card style={{ width: "50rem" }}>
+      <Card className="shadow"  style={{ width: "50rem" }}>
         <Card.Title>Assessment Summary</Card.Title>
         <Card.Body>
           {loading && <Button disabled>Generating</Button>}

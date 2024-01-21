@@ -13,7 +13,7 @@ function AProfileCard({
 
   return (
     <>
-      <div className="profile-card-container">
+      <div>
         <Row>
           <Col md={6}>
             <EditProfile />
