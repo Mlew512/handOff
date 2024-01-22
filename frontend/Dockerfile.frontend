@@ -4,6 +4,9 @@ FROM node:latest
 # Set the working directory inside the container
 WORKDIR /frontend
 
+# Install Vite globally
+RUN npm install -g vite
+
 # Copy package.json and package-lock.json to the container
 COPY package*.json ./
 
@@ -20,4 +23,4 @@ RUN npm run build
 EXPOSE 5173
 
 # Start the Vite server to serve the built project
-CMD ["./node_modules/.bin/vite", "start"]
+CMD ["vite", "start"]
