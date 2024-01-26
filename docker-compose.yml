@@ -20,6 +20,11 @@ services:
       - handoff_network
     environment:
       - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY:-default_value}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   frontend:
     build:
