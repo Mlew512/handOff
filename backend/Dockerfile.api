@@ -22,6 +22,8 @@ COPY requirements.txt .
 # Upgrade pip
 RUN pip install --upgrade pip
 
+RUN pip install gunicorn
+
 # Install Python project environment dependencies
 RUN pip install -r requirements.txt
 
