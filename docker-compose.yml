@@ -18,8 +18,8 @@ services:
       - postgres
     networks:
       - handoff_network
-    environment:
-      - DJANGO_SECRET_KEY=django-insecure-r7#@)4_=gu3(w$)hi#z=%6zbnj)z5cdk)78zbwokwa9ljsc2hz
+     environment:
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY:-default_value}
 
   frontend:
     build:
