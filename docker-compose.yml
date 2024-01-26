@@ -18,7 +18,7 @@ services:
       - postgres
     networks:
       - handoff_network
-     environment:
+    environment:
       - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY:-default_value}
 
   frontend:

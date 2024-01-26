@@ -57,3 +57,6 @@ Additional notes for next release:
 
 
 ---threads for sending api calls for each part of assessment-- 
+
+
+DJANGO_SECRET_KEY="django-insecure-r7#@)4_=gu3(w$)hi#z=%6zbnj)z5cdk)78zbwokwa9ljsc2hz" sudo docker-compose up --build -d
