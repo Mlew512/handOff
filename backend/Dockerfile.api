@@ -8,9 +8,10 @@ ENV PYTHONUNBUFFERED 1
 # Create and set the working directory inside the container
 WORKDIR /backend
 
-# updates ubuntus installer
+# updates Ubuntu's installer
 RUN apt-get update
-# Install system dependencies to interact with postgresql
+
+# Install system dependencies to interact with PostgreSQL
 RUN apt-get install -y --no-install-recommends \
     gcc \
     postgresql-client
@@ -21,14 +22,17 @@ COPY requirements.txt .
 # Upgrade pip
 RUN pip install --upgrade pip
 
-# Install Python Projects Environment dependencies
+# Install Python project environment dependencies
 RUN pip install -r requirements.txt
 
 # Copy the entire Django project to the container
 COPY . .
 
-# Expose port 8000 for Django development server
+# Expose port 8000 for Gunicorn
 EXPOSE 8000
 
-# Start the Django development server
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Collect static files
+RUN python manage.py collectstatic --noinput
+
+# Start Gunicorn
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "your_django_project.wsgi:application"]
