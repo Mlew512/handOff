@@ -9,13 +9,13 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile.api
-    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    command: bash -c "python manage.py migrate && gunicorn myapi.wsgi:application -b 0.0.0.0:8000"
     volumes:
       - ./backend:/backend
     ports:
       - "8000:8000"
     environment:
-      - DJANGO_SECRET_KEY="django-insecure-r7#@)4_=gu3(w$)hi#z=%6zbnj)z5cdk)78zbwokwa9ljsc2hz"
+      - DJANGO_SECRET_KEY=django-insecure-r7#@)4_=gu3(w$)hi#z=%6zbnj)z5cdk)78zbwokwa9ljsc2hz
     depends_on:
       - postgres
     networks:
