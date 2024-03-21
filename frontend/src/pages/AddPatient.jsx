@@ -11,7 +11,7 @@ const AddPatient = () => {
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [sex, setSex] = useState("")
+  const [sex, setSex] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState(null);
   const [allergies, setAllergies] = useState("");
   const [pmh, setPmh] = useState("");
@@ -26,13 +26,13 @@ const AddPatient = () => {
     };
 
     const data = {
-        first_name: firstName,
-        last_name : lastName,
-        sex: sex,
-        date_of_birth: dateOfBirth,
-        allergies :allergies,
-        past_medical_history : pmh, 
-        medical_id: medicalId
+      first_name: firstName,
+      last_name: lastName,
+      sex: sex,
+      date_of_birth: dateOfBirth,
+      allergies: allergies,
+      past_medical_history: pmh,
+      medical_id: medicalId,
     };
 
     console.log(data);
@@ -50,7 +50,21 @@ const AddPatient = () => {
       console.error(err);
     }
   };
+  const getCurrentDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    let month = today.getMonth() + 1;
+    let day = today.getDate();
 
+    if (month < 10) {
+      month = `0${month}`; // Add leading zero if month is less than 10
+    }
+    if (day < 10) {
+      day = `0${day}`; // Add leading zero if day is less than 10
+    }
+
+    return `${year}-${month}-${day}`;
+  };
   return (
     <Row id="patientsPage" style={{ padding: "0 10vmin" }}>
       <Col md={6} className="mx-auto">
@@ -83,17 +97,19 @@ const AddPatient = () => {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="lastName" className="form-label">
+            <label htmlFor="sex" className="form-label">
               Sex:
             </label>
-            <input
-              type="text"
-              className="form-control"
+            <select
+              className="form-select"
               id="sex"
-              placeholder="sex"
-              value={lastName}
+              value={sex}
               onChange={(e) => setSex(e.target.value)}
-            />
+            >
+              <option value="">Select sex</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
           </div>
           <div className="mb-3">
             <label htmlFor="dateOfBirth" className="form-label">
@@ -103,10 +119,12 @@ const AddPatient = () => {
               type="date"
               className="form-control"
               id="dateOfBirth"
+              max={getCurrentDate()} // Set the max attribute to the current date
               value={dateOfBirth}
               onChange={(e) => setDateOfBirth(e.target.value)}
             />
           </div>
+
           <div className="mb-3">
             <label htmlFor="allergies" className="form-label">
               Allergies:
